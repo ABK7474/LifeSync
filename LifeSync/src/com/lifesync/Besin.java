@@ -1,10 +1,11 @@
+package com.lifesync;
 public class Besin {
 	private int besinId;
 
 	private String besinAdi;
 
 	private double kalori;
-
+	
 	private double protein;
 
 	private double karbonhidrat;
