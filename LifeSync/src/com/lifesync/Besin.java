@@ -74,6 +74,9 @@ public class Besin {
 
 	//endregion
 	
-	
+	public String besinBilgisiGetir()
+	{
+		return "BILGI";
+	}
 	
 }
