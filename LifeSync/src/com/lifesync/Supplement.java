@@ -1,5 +1,5 @@
 package com.lifesync;
-public class Supplement {
+public class Supplement implements IBilgiGetirebilir{
   
 	private int supplementId;
 	
@@ -10,6 +10,15 @@ public class Supplement {
 	private Birim birim;
 	
 	private KullanimZamani kullanimZamani;
+
+	Supplement(int supplementId,String supplementAdi,double miktar,Birim birim,KullanimZamani kullanimZamani)
+	{
+		this.supplementId=supplementId;
+		this.supplementAdi=supplementAdi;
+		this.miktar=miktar;
+		this.birim=birim;
+		this.kullanimZamani=kullanimZamani;
+	}
 	
 	//region Getters and Setters
 
@@ -59,7 +68,9 @@ public class Supplement {
 	
 	public String bilgiGetir()
 	{
-		return "BILGI";		
+		return  "Supplement Adi: " + supplementAdi +
+				", Miktar :" + miktar + " " + birim +
+				", Kullanim Zamani: " + kullanimZamani;
 	}
 	
 }

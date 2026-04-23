@@ -1,5 +1,5 @@
 package com.lifesync;
-public class Besin {
+public class Besin implements IBilgiGetirebilir{
 	private int besinId;
 
 	private String besinAdi;
@@ -13,6 +13,21 @@ public class Besin {
 	private double yag;
 
 	private double lif;
+	
+	Birim gram = Birim.gram;
+	Birim kcal = Birim.kcal;
+	
+	
+	Besin(int besinId,String besinAdi,double kalori,double protein,double karbonhidrat,double yag,double lif)
+	{
+		this.besinId=besinId;
+		this.besinAdi=besinAdi;
+		this.kalori=kalori;
+		this.protein=protein;
+		this.karbonhidrat=karbonhidrat;
+		this.yag=yag;
+		this.lif=lif;
+	}
 
 	//region Getters and Setters
 	
@@ -74,9 +89,15 @@ public class Besin {
 
 	//endregion
 	
-	public String besinBilgisiGetir()
+	public String bilgiGetir()
 	{
-		return "BILGI";
+		return  "Besin Adi: " + besinAdi +
+				", Kalori Miktari: " + kalori + " " + kcal +
+				", Protein Miktari: " + protein + " " + gram +
+				", Karbonhidrat Miktari: " + karbonhidrat + " " + gram +
+				", Yag Miktari: " + yag + " " + gram +
+				", Lif Miktari: " + lif + " " + gram;
 	}
+	
 	
 }

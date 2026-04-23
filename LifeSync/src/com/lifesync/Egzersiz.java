@@ -1,5 +1,5 @@
 package com.lifesync;
-public class Egzersiz {
+public class Egzersiz implements IBilgiGetirebilir{
     private int egzersizId;
     private String egzersizAdi;
     private int setSayisi;
