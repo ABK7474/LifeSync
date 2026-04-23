@@ -4,5 +4,6 @@ public enum Birim {
 	ml,
 	adet,
 	olcek,
-	kcal
+	kcal,
+	litre
 }

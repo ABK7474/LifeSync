@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Ogun implements IOzetlenebilir{
   
-		private int ogunID;
+		private int ogunId;
 		
 		private LocalDate tarih;
 		
@@ -14,14 +14,24 @@ public class Ogun implements IOzetlenebilir{
 		
 		private List<Besin> besinListesi;
 		
+		Ogun(int ogunId, OgunTuru ogunTuru)
+		{
+			this.ogunId = ogunId;
+	        this.ogunTuru = ogunTuru;
+	        this.tarih = LocalDate.now();
+	        this.besinListesi = new ArrayList<>();
+		}
+		
+	
+		
 		//region Getters and Setters
 
 		public int getOgunID() {
-			return ogunID;
+			return ogunId;
 		}
 
 		public void setOgunID(int ogunID) {
-			this.ogunID = ogunID;
+			this.ogunId = ogunID;
 		}
 
 		public LocalDate getTarih() {
@@ -52,28 +62,48 @@ public class Ogun implements IOzetlenebilir{
 		
 		public void besinEkle(Besin besin)
 		{
-			
+			besinListesi.add(besin);
 		}
 		
 		public void besinSil(int besinId)
 		{
-			
+			besinListesi.removeIf(b -> b.getBesinId() == besinId);
 		}
 		
 		public double toplamKaloriHesapla()
 		{
-			return 0;
+			double toplam = 0;
+			
+			for(Besin besin:besinListesi)
+			{
+				toplam += besin.getKalori();
+			}
+			return toplam;
 		}
 		
 		public Map<String, Double> makroHesapla()
 		{
 			Map<String,Double> ozet = new HashMap<String, Double>();
+			
+			double protein=0,karbonhidrat=0,yag=0;
+		
+			for(Besin besin:besinListesi)
+			{
+				protein+=besin.getProtein();
+				karbonhidrat+=besin.getKarbonhidrat();
+				yag+=besin.getYag();		
+			}
+			
+			ozet.put("Protein",protein);
+			ozet.put("Karbonhidrat",karbonhidrat);
+			ozet.put("Yag",yag);
+			
 			return ozet;
 		}
 		
 		public String ozetGetir()
 		{
-			return "OZET";
+			return ogunTuru + " Ozeti: " + besinListesi.size() + " Cesit besin tuketildi. " + "Toplam Kalori: " + toplamKaloriHesapla();
 		}
 		
 		

@@ -3,6 +3,7 @@ package com.lifesync;
 import java.time.LocalDate;
 import java.util.*;
 
+
 public class GunlukTakip implements IOzetlenebilir{
   
 	private int takipId;
@@ -14,6 +15,18 @@ public class GunlukTakip implements IOzetlenebilir{
 	private List<Supplement> supplementListesi;
 	
 	private String gunlukNot;
+	
+	Birim litre= Birim.litre;
+	Birim adet= Birim.adet;
+	
+	GunlukTakip(int takipId)
+	{
+		this.takipId=takipId;
+		this.suMiktari=0;
+		this.tarih = LocalDate.now();
+		this.supplementListesi=new ArrayList<>();
+	}
+	
 	
 	//region Getters and Settters
 
@@ -59,24 +72,43 @@ public class GunlukTakip implements IOzetlenebilir{
 	
 	//endregion
 	
-	public void suEkle(double miktar)
+	public void gunlukNotEkle(String not)
 	{
-			
+		this.gunlukNot=not;
+	}
+	
+	public void suEkle(double miktar) // litre cinsinden girin.
+	{
+		this.suMiktari+=miktar;
 	}
 	
 	public void supplementEkle(Supplement supplement)
 	{
-		
+		supplementListesi.add(supplement);
 	}
 	
-	public String hedefDurumuGetir()
+	public String hedefDurumuGetir(Sporcu sporcu) //Sporcu bilgilerine göre gelecek olan su ihtiyacı karşılanmış mı onu hesaplayacağım
 	{
-		return "DURUM";
+		return "YAZILACAK";
 	}
 	
 	public String ozetGetir()
 	{
-		return "OZET";
+		String ozet =   tarih + " Tarihindeki Ozet: " + 
+						suMiktari + " " + litre + " su içildi. " + 
+						supplementListesi.size() + " " + adet + " supplement kullanildi.";
+		
+				if(gunlukNot != null && !gunlukNot.isEmpty())
+				{
+					ozet += " Gunun Notu: " + gunlukNot;
+				}
+				else
+				{
+					ozet += " Gunun Notu: " + "Bu gune ait bir not dusulmedi.";
+				}
+				
+				
+		return ozet;		
 		
 	}
 }

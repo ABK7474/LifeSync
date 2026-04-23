@@ -1,2 +1,7 @@
 package com.lifesync;
-public enum OgunTuru {}
+public enum OgunTuru {
+	KAHVALTI,
+	OGLE,
+	AKSAM,
+	ARA_OGUN
+}
