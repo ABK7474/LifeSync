@@ -17,10 +17,11 @@ public class Antrenor extends Kullanici{
         return this.sporcuListesi;
     }
 
+    // HENÜZ SPORCU SINIFI YAZILMADIĞI İÇİN YORUM SATIRI OLARAK YAZILMIŞTIR
+
     // Mantıksal operasyon: Belirtilen antrenmanı, belirtilen sporcunun antrenman listesine ekler.
     // public void programAta(Sporcu sporcu, Antrenman antrenman) {
     //     if (sporcu != null && antrenman != null) {
-    //         // Sporcu sınıfında antrenmanEkle adında bir metot olduğu varsayımıyla (Önceki UML şemasındaki yapı)
     //         sporcu.antrenmanEkle(antrenman);
     //     } else {
     //         throw new IllegalArgumentException("Sporcu veya Antrenman referansı null (boş) olamaz.");
@@ -30,7 +31,7 @@ public class Antrenor extends Kullanici{
     // Mantıksal operasyon: Sporcunun verilerini analiz edip string formatında rapor döner.
     // public String ilerlemeIncele(Sporcu sporcu) {
     //     if (sporcu != null) {
-    //         // İleride veritabanından çekilecek metriklerle doldurulacak iş mantığı alanı
+    //         // İleride veritabanından çekilecek verilerle doldurulacak iş mantığı alanı
     //         return "Sporcu: " + sporcu.getAdSoyad() + " için ilerleme analizi tamamlandı.";
     //     }
     //     return "Geçersiz sporcu referansı.";
