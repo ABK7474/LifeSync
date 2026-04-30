@@ -1,9 +1,9 @@
 package com.lifesync;
 public enum Birim {
-	gram,
-	ml,
-	adet,
-	olcek,
-	kcal,
-	litre
+	GRAM,
+	ML,
+	ADET,
+	OLCEK,
+	KCAL,
+	LITRE
 }
