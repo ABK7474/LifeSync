@@ -17,8 +17,6 @@ public class Antrenor extends Kullanici{
         return this.sporcuListesi;
     }
 
-    // HENÜZ SPORCU SINIFI YAZILMADIĞI İÇİN YORUM SATIRI OLARAK YAZILMIŞTIR
-
     // Mantıksal operasyon: Belirtilen antrenmanı, belirtilen sporcunun antrenman listesine ekler.
     public void programAta(Sporcu sporcu, Antrenman antrenman) {
         if (sporcu != null && antrenman != null) {
