@@ -16,8 +16,8 @@ public class GunlukTakip implements IOzetlenebilir{
 	
 	private String gunlukNot;
 	
-	Birim litre= Birim.litre;
-	Birim adet= Birim.adet;
+	Birim litre= Birim.LITRE;
+	Birim adet= Birim.ADET;
 	
 	GunlukTakip(int takipId)
 	{
@@ -89,7 +89,24 @@ public class GunlukTakip implements IOzetlenebilir{
 	
 	public String hedefDurumuGetir(Sporcu sporcu) //Sporcu bilgilerine göre gelecek olan su ihtiyacı karşılanmış mı onu hesaplayacağım
 	{
-		return "YAZILACAK";
+		if (sporcu == null) {
+            return "Hata: Sporcu bilgisi geçersiz.";
+        }
+        
+        Hedef sporcuHedefi = sporcu.getHedef();
+        
+        if (sporcuHedefi == null) {
+            return "Hata: Bu sporcunun henüz belirlenmiş bir hedefi yok.";
+        }
+
+        double hedeflenenSu = sporcuHedefi.getHedefSu();
+        double fark = hedeflenenSu - this.suMiktari;
+
+        if (fark <= 0) {
+            return "Başarılı: Günlük su içme hedefi (" + hedeflenenSu + "L) karşılandı!";
+        } else {
+            return "Eksik: Günlük su hedefine ulaşmak için " + fark + "L daha su içmelisiniz.";
+        }
 	}
 	
 	public String ozetGetir()
