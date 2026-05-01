@@ -1,29 +1,29 @@
 package com.lifesync;
 
 public class ProfesyonelSporcu extends Sporcu {
-    private String lisansNumarasi;
-    private String brans;
+    private String yaristigiAlan; // Örn: Open, Klasik Fizik, Men's Fizik
 
-    public ProfesyonelSporcu(int kullaniciId, String adSoyad, String email, String sifreHash, double boy, double kilo, String lisansNumarasi, String brans) {
+    public ProfesyonelSporcu(int kullaniciId, String adSoyad, String email, String sifreHash, double boy, double kilo, String yaristigiAlan) {
         super(kullaniciId, adSoyad, email, sifreHash, boy, kilo);
-        this.lisansNumarasi = lisansNumarasi;
-        this.brans = brans;
+        this.yaristigiAlan = yaristigiAlan;
     }
 
-    public String getLisansNumarasi() { return lisansNumarasi; }
-    public void setLisansNumarasi(String lisansNumarasi) { this.lisansNumarasi = lisansNumarasi; }
-
-    public String getBrans() { return brans; }
-    public void setBrans(String brans) { this.brans = brans; }
+    public String getYaristigiAlan() { 
+        return yaristigiAlan; 
+    }
+    
+    public void setYaristigiAlan(String yaristigiAlan) { 
+        this.yaristigiAlan = yaristigiAlan; 
+    }
 
     @Override
     public double gunlukKaloriIhtiyaciHesapla() {
-        // Profesyonel sporcular (yüksek yoğunluklu çalıştıkları için) çarpan daha yüksektir
+        // Profesyonel vücut geliştiriciler için yarışma/büyüme dönemlerine özel yüksek yoğunluklu kalori hesabı
         return getKilo() * 24 * 1.8; 
     }
 
     @Override
     public String sporcuProfilOzeti() {
-        return "Profesyonel Sporcu: " + getAdSoyad() + " | Branş: " + brans + " | Lisans No: " + lisansNumarasi;
+        return "Profesyonel Sporcu: " + getAdSoyad() + " | Yarıştığı Alan: " + yaristigiAlan;
     }
 }
