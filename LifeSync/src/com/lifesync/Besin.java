@@ -14,8 +14,8 @@ public class Besin implements IBilgiGetirebilir{
 
 	private double lif;
 	
-	Birim gram = Birim.gram;
-	Birim kcal = Birim.kcal;
+	Birim gram = Birim.GRAM;
+	Birim kcal = Birim.KCAL;
 	
 	
 	Besin(int besinId,String besinAdi,double kalori,double protein,double karbonhidrat,double yag,double lif)
