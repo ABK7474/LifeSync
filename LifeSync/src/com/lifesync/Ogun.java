@@ -1,17 +1,17 @@
 package com.lifesync;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Ogun implements IOzetlenebilir{
   
 		private int ogunId;
-		
 		private LocalDate tarih;
-		
 		private OgunTuru ogunTuru;
-		
 		private List<Besin> besinListesi;
 		
 		Ogun(int ogunId, OgunTuru ogunTuru)
@@ -105,8 +105,4 @@ public class Ogun implements IOzetlenebilir{
 		{
 			return ogunTuru + " Ozeti: " + besinListesi.size() + " Cesit besin tuketildi. " + "Toplam Kalori: " + toplamKaloriHesapla();
 		}
-		
-		
-		
-		
 }
