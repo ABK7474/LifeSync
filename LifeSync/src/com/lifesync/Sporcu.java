@@ -19,12 +19,21 @@ public abstract class Sporcu extends Kullanici {
         this.gunlukTakipListesi = new ArrayList<>();
     }
 
-    // Getters ve Setters (ValidationService'in hata vermemesi için gerekli)
     public double getBoy() { return boy; }
     public void setBoy(double boy) { this.boy = boy; }
-    
     public double getKilo() { return kilo; }
     public void setKilo(double kilo) { this.kilo = kilo; }
+    public Hedef getHedef() { return hedef; }
+    public void setHedef(Hedef hedef) { this.hedef = hedef; }
+    
+    
+    // Hedefin durumunu kontrol eden rasyonel iş mantığı
+    public String genelHedefDurumuGetir() {
+        if (this.hedef == null) {
+            return "Uyarı: Sporcuya henüz bir hedef atanmamıştır.";
+        }
+        return "Güncel Hedef -> Kilo: " + hedef.getHedefKilo() + "kg | Günlük Kalori: " + hedef.getHedefKalori() + "kcal";
+    }
 
     public void antrenmanEkle(Antrenman antrenman) {
         antrenmanListesi.add(antrenman);
