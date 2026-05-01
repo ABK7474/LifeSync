@@ -8,13 +8,9 @@ public class ProfesyonelSporcu extends Sporcu {
         this.yaristigiAlan = yaristigiAlan;
     }
 
-    public String getYaristigiAlan() { 
-        return yaristigiAlan; 
-    }
+    public String getYaristigiAlan() {  return yaristigiAlan; }
+    public void setYaristigiAlan(String yaristigiAlan) {  this.yaristigiAlan = yaristigiAlan; }
     
-    public void setYaristigiAlan(String yaristigiAlan) { 
-        this.yaristigiAlan = yaristigiAlan; 
-    }
 
     @Override
     public double gunlukKaloriIhtiyaciHesapla() {
