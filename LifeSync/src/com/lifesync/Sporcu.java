@@ -10,6 +10,7 @@ public abstract class Sporcu extends Kullanici {
     private Hedef hedef;
     private List<Antrenman> antrenmanListesi;
     private List<GunlukTakip> gunlukTakipListesi;
+    private List<Ogun> ogunListesi = new ArrayList<>();
 
     public Sporcu(int kullaniciId, String adSoyad, String email, String sifreHash, double boy, double kilo) {
         super(kullaniciId, adSoyad, email, sifreHash);
@@ -25,7 +26,11 @@ public abstract class Sporcu extends Kullanici {
     public void setKilo(double kilo) { this.kilo = kilo; }
     public Hedef getHedef() { return hedef; }
     public void setHedef(Hedef hedef) { this.hedef = hedef; }
+    public List<Ogun> getOgunListesi() { return ogunListesi; }
     
+    public void ogunEkle(Ogun ogun) { 
+        this.ogunListesi.add(ogun); 
+    }
     
     // Hedefin durumunu kontrol eden rasyonel iş mantığı
     public String genelHedefDurumuGetir() {
@@ -43,9 +48,9 @@ public abstract class Sporcu extends Kullanici {
         gunlukTakipListesi.add(takip);
     }
 
-    // POLİMORFİZM İÇİN SOYUT METOT: Her alt sınıf kendi seviyesine göre hesaplayacak
+    //Her alt sınıf kendi seviyesine göre hesaplayacak
     public abstract double gunlukKaloriIhtiyaciHesapla();
     
-    // POLİMORFİZM İÇİN SOYUT METOT: Her alt sınıf kendi özetini farklı dönecek
+    // Her alt sınıf kendi özetini farklı dönecek
     public abstract String sporcuProfilOzeti();
 }

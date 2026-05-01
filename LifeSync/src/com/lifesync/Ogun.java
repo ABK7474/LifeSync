@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class Ogun implements IOzetlenebilir{
   
 		private int ogunId;
@@ -21,8 +20,6 @@ public class Ogun implements IOzetlenebilir{
 	        this.tarih = LocalDate.now();
 	        this.besinListesi = new ArrayList<>();
 		}
-		
-	
 		
 		//region Getters and Setters
 
