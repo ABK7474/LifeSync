@@ -87,27 +87,43 @@ public class GunlukTakip implements IOzetlenebilir{
 		supplementListesi.add(supplement);
 	}
 	
-	public String hedefDurumuGetir(Sporcu sporcu) //Sporcu bilgilerine göre gelecek olan su ihtiyacı karşılanmış mı onu hesaplayacağım
-	{
-		if (sporcu == null) {
-            return "Hata: Sporcu bilgisi geçersiz.";
-        }
-        
-        Hedef sporcuHedefi = sporcu.getHedef();
-        
-        if (sporcuHedefi == null) {
-            return "Hata: Bu sporcunun henüz belirlenmiş bir hedefi yok.";
+	public String hedefDurumuGetir(Sporcu sporcu) {
+        if (sporcu == null || sporcu.getHedef() == null) {
+            return "Hata: Sporcu bilgisi veya atanmış bir hedef bulunamadı.";
         }
 
-        double hedeflenenSu = sporcuHedefi.getHedefSu();
-        double fark = hedeflenenSu - this.suMiktari;
+        Hedef hedef = sporcu.getHedef();
+        
+        // 1. Su Hedefi Kontrolü (GunlukTakip sınıfının kendi verisi)
+        double suFarki = hedef.getHedefSu() - this.suMiktari;
+        String suDurumu = (suFarki <= 0) ? "Tamamlandı" : "Kalan " + suFarki + " L";
 
-        if (fark <= 0) {
-            return "Başarılı: Günlük su içme hedefi (" + hedeflenenSu + "L) karşılandı!";
-        } else {
-            return "Eksik: Günlük su hedefine ulaşmak için " + fark + "L daha su içmelisiniz.";
+        // 2. Kalori ve Protein Hedefi Kontrolü (Sporcunun öğünlerinden çekilecek)
+        double gunlukToplamKalori = 0;
+        double gunlukToplamProtein = 0;
+
+        // Sporcunun tüm öğünlerini gez, sadece GunlukTakip ile AYNI TARİHTE olanları topla
+        for (Ogun ogun : sporcu.getOgunListesi()) {
+            if (ogun.getTarih().equals(this.tarih)) {
+                gunlukToplamKalori += ogun.toplamKaloriHesapla();
+                
+                // Ogun içindeki makroHesapla metodu Map dönüyor, oradan Proteini çekiyoruz
+                if (ogun.makroHesapla().containsKey("Protein")) {
+                    gunlukToplamProtein += ogun.makroHesapla().get("Protein");
+                }
+            }
         }
-	}
+
+        double kaloriFarki = hedef.getHedefKalori() - gunlukToplamKalori;
+        String kaloriDurumu = (kaloriFarki <= 0) ? "Aşıldı/Tamamlandı" : "Kalan " + kaloriFarki + " kcal";
+
+        double proteinFarki = hedef.getHedefProtein() - gunlukToplamProtein;
+        String proteinDurumu = (proteinFarki <= 0) ? "Tamamlandı" : "Kalan " + proteinFarki + " gr";
+
+        // Tüm verileri bütünsel bir rapor olarak döndür
+        return String.format("--- %s Tarihli Hedef Durumu ---\nSu: %s\nKalori: %s\nProtein: %s", 
+                             this.tarih.toString(), suDurumu, kaloriDurumu, proteinDurumu);
+    }
 	
 	public String ozetGetir()
 	{
@@ -123,9 +139,6 @@ public class GunlukTakip implements IOzetlenebilir{
 				{
 					ozet += " Gunun Notu: " + "Bu gune ait bir not dusulmedi.";
 				}
-				
-				
 		return ozet;		
-		
 	}
 }
