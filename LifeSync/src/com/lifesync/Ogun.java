@@ -22,39 +22,14 @@ public class Ogun implements IOzetlenebilir{
 		}
 		
 		//region Getters and Setters
-
-		public int getOgunID() {
-			return ogunId;
-		}
-
-		public void setOgunID(int ogunID) {
-			this.ogunId = ogunID;
-		}
-
-		public LocalDate getTarih() {
-			return tarih;
-		}
-
-		public void setTarih(LocalDate tarih) {
-			this.tarih = tarih;
-		}
-
-		public OgunTuru getOgunTuru() {
-			return ogunTuru;
-		}
-
-		public void setOgunTuru(OgunTuru ogunTuru) {
-			this.ogunTuru = ogunTuru;
-		}
-
-		public List<Besin> getBesinListesi() {
-			return besinListesi;
-		}
-
-		public void setBesinListesi(List<Besin> besinListesi) {
-			this.besinListesi = besinListesi;
-		}
-		
+		public int getOgunID() { return ogunId; }
+		public void setOgunID(int ogunID) { this.ogunId = ogunID; }
+		public LocalDate getTarih() { return tarih; }
+		public void setTarih(LocalDate tarih) { this.tarih = tarih; }
+		public OgunTuru getOgunTuru() { return ogunTuru; }
+		public void setOgunTuru(OgunTuru ogunTuru) { this.ogunTuru = ogunTuru; }
+		public List<Besin> getBesinListesi() { return besinListesi; }
+		public void setBesinListesi(List<Besin> besinListesi) { this.besinListesi = besinListesi; }
 		//endregion
 		
 		public void besinEkle(Besin besin)
