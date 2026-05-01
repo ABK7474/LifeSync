@@ -21,22 +21,11 @@ public abstract class Kullanici {
 	}
 	
 	public int getKullaniciID() { return kullaniciID; }
-	public void setKullaniciID(int kullaniciID) {
-		this.kullaniciID = kullaniciID;
-	}
-	
+	public void setKullaniciID(int kullaniciID) { this.kullaniciID = kullaniciID; }
 	public String getAdSoyad() { return adSoyad; }
-	public void setAdSoyad(String adSoyad) {
-		this.adSoyad = adSoyad;
-	}
-	
+	public void setAdSoyad(String adSoyad) { this.adSoyad = adSoyad; }
 	public String getEmail() { return email; }
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+	public void setEmail(String email) { this.email = email; }
 	public String getSifreHash() { return sifreHash; }
-	public void setSifreHash(String sifreHash) {
-		this.sifreHash = sifreHash;
-	}
+	public void setSifreHash(String sifreHash) { this.sifreHash = sifreHash; }
 }
