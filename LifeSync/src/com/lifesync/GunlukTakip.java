@@ -16,7 +16,7 @@ public class GunlukTakip implements IOzetlenebilir{
 	Birim litre= Birim.LITRE;
 	Birim adet= Birim.ADET;
 	
-	GunlukTakip(int takipId)
+	public GunlukTakip(int takipId)
 	{
 		this.takipId=takipId;
 		this.suMiktari=0;

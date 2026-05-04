@@ -1,6 +1,5 @@
 package com.lifesync;
 
-
 public class AmatorSporcu extends Sporcu {
     private String deneyimSeviyesi; // Örn: Başlangıç, Orta
 

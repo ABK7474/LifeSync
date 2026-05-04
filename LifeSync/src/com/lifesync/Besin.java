@@ -12,7 +12,7 @@ public class Besin implements IBilgiGetirebilir{
 	Birim gram = Birim.GRAM;
 	Birim kcal = Birim.KCAL;
 	
-	Besin(int besinId,String besinAdi,double kalori,double protein,double karbonhidrat,double yag,double lif)
+	public Besin(int besinId,String besinAdi,double kalori,double protein,double karbonhidrat,double yag,double lif)
 	{
 		this.besinId=besinId;
 		this.besinAdi=besinAdi;

@@ -23,7 +23,7 @@ public class KullaniciFactory {
                 return new ProfesyonelSporcu(id, ad, email, sifre, boy, kilo, ekstraBilgi1);
                 
             default:
-                throw new IllegalArgumentException("Hata: Geçersiz kullanıcı tipi (" + tip + ").");
+                throw new IllegalArgumentException("Hata: Geçersiz kullanıcı tipi : " + tip);
         }
     }
 }

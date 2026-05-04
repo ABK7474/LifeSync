@@ -7,7 +7,7 @@ public class Supplement implements IBilgiGetirebilir{
 	private Birim birim;
 	private KullanimZamani kullanimZamani;
 
-	Supplement(int supplementId,String supplementAdi,double miktar,Birim birim,KullanimZamani kullanimZamani)
+	public Supplement(int supplementId,String supplementAdi,double miktar,Birim birim,KullanimZamani kullanimZamani)
 	{
 		this.supplementId=supplementId;
 		this.supplementAdi=supplementAdi;

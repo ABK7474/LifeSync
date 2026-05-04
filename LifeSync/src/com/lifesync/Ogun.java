@@ -13,7 +13,7 @@ public class Ogun implements IOzetlenebilir{
 		private OgunTuru ogunTuru;
 		private List<Besin> besinListesi;
 		
-		Ogun(int ogunId, OgunTuru ogunTuru)
+		public Ogun(int ogunId, OgunTuru ogunTuru)
 		{
 			this.ogunId = ogunId;
 	        this.ogunTuru = ogunTuru;
