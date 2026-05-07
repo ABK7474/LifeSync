@@ -1,6 +1,5 @@
 package com.lifesync;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,37 +23,18 @@ public class Antrenman implements IOzetlenebilir {
         return tamamlandi;
     }
 
-    public void setTamamlandi(boolean tamamlandi) {
-        this.tamamlandi = tamamlandi;
-    }
-
-    public int getAntrenmanId() {
-        return antrenmanId;
-    }
-
-    public void setAntrenmanId(int antrenmanId) {
-        this.antrenmanId = antrenmanId;
-    }
-
-    public LocalDate getTarih() {
-        return tarih;
-    }
-
-    public void setTarih(LocalDate tarih) {
-        this.tarih = tarih;
-    }
-
-    public AntrenmanTuru getAntrenmanTuru() {
-        return antrenmanTuru;
-    }
-
-    public void setAntrenmanTuru(AntrenmanTuru antrenmanTuru) {
-        this.antrenmanTuru = antrenmanTuru;
-    }
-
-    public List<Egzersiz> getEgzersizListesi() {
-        return egzersizListesi;
-    }
+    public void setTamamlandi(boolean tamamlandi) { this.tamamlandi = tamamlandi; } 
+    
+    public int getAntrenmanId() { return antrenmanId; }
+    public void setAntrenmanId(int antrenmanId) { this.antrenmanId = antrenmanId; }
+    
+    public LocalDate getTarih() { return tarih; }
+    public void setTarih(LocalDate tarih) { this.tarih = tarih; }
+            
+    public AntrenmanTuru getAntrenmanTuru() { return antrenmanTuru; }
+    public void setAntrenmanTuru(AntrenmanTuru antrenmanTuru) { this.antrenmanTuru = antrenmanTuru; }
+        
+    public List<Egzersiz> getEgzersizListesi() { return egzersizListesi; }
 
     public void egzersizEkle(Egzersiz egzersiz) {
         egzersizListesi.add(egzersiz);
@@ -83,11 +63,11 @@ public class Antrenman implements IOzetlenebilir {
     public String ozetGetir() {
         String durum = tamamlandi ? "Tamamlandı" : "Bekliyor";
         return "Antrenman ID: " + antrenmanId +
-               ", Tarih: " + tarih +
-               ", Tür: " + antrenmanTuru +
-               ", Egzersiz Sayısı: " + egzersizListesi.size() +
-               ", Toplam Hacim: " + toplamHacimHesapla() +
-               ", Durum: " + durum;
+                ", Tarih: " + tarih +
+                ", Tür: " + antrenmanTuru +
+                ", Egzersiz Sayısı: " + egzersizListesi.size() +
+                ", Toplam Hacim: " + toplamHacimHesapla() +
+                ", Durum: " + durum;
     }
 
     @Override

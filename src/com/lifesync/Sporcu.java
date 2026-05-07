@@ -23,11 +23,14 @@ public abstract class Sporcu extends Kullanici {
 
     public double getBoy() { return boy; }
     public void setBoy(double boy) { this.boy = boy; }
+    
     public double getKilo() { return kilo; }
     public void setKilo(double kilo) { this.kilo = kilo; }
+    
     public Hedef getHedef() { return hedef; }
     public void setHedef(Hedef hedef) { this.hedef = hedef; }
     
+
     // Encapsulation: Listeler değiştirilemez (unmodifiable) olarak döndürülür.
     // Ekleme/silme işlemleri yalnızca sınıfın kendi metotları ile yapılabilir.
     public List<Ogun> getOgunListesi() { return Collections.unmodifiableList(ogunListesi); }

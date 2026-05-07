@@ -24,20 +24,24 @@ public class GunlukTakip implements IOzetlenebilir{
 		this.supplementListesi=new ArrayList<>();
 	}
 	
-	
 	//region Getters and Settters
 	public int getTakipId() { return takipId; }
 	public void setTakipId(int takipId) { this.takipId = takipId; }
+	
 	public LocalDate getTarih() { return tarih; }
 	public void setTarih(LocalDate tarih) { this.tarih = tarih; }
+	
 	public double getSuMiktari() { return suMiktari; }
 	public void setSuMiktari(double suMiktari) { this.suMiktari = suMiktari; }
+	
 	public List<Supplement> getSupplementListesi() { return supplementListesi; }
 	public void setSupplementListesi(List<Supplement> supplementListesi) { this.supplementListesi = supplementListesi; }
+	
 	public String getGunlukNot() { return gunlukNot; }
 	public void setGunlukNot(String gunlukNot) { this.gunlukNot = gunlukNot; }
 	//endregion
 	
+
 	public void gunlukNotEkle(String not)
 	{
 		this.gunlukNot=not;

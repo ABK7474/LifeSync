@@ -18,12 +18,10 @@ public final class ValidationService {
         if (kullanici.getEmail() == null || !kullanici.getEmail().contains("@")) {
             throw new GecersizVeriHatasi("Hata: Geçersiz e-posta adresi girdiniz!");
         }
-        
 
         if (kullanici.getSifreHash() == null || kullanici.getSifreHash().length() < 4) {
             throw new GecersizVeriHatasi("Hata: Şifre en az 4 karakter olmalıdır!");
         }
-        
 
         if (kullanici.getAdSoyad() == null || kullanici.getAdSoyad().trim().isEmpty()) {
             throw new GecersizVeriHatasi("Hata: Ad soyad alanı boş bırakılamaz!");

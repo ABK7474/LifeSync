@@ -26,16 +26,23 @@ public class Mesaj {
         this.tarih = LocalDateTime.now();
     }
 
-    // Getters
+    // Getters Setters
     public int getMesajId() { return mesajId; }
     public int getGonderenId() { return gonderenId; }
     public int getAliciId() { return aliciId; }
     public String getGonderenAdi() { return gonderenAdi; }
     public String getAliciAdi() { return aliciAdi; }
     public String getMesajIcerigi() { return mesajIcerigi; }
+    
     public LocalDateTime getTarih() { return tarih; }
     public void setTarih(LocalDateTime tarih) { this.tarih = tarih; }
 
+    
+    
+    
+
+    
+    
     /**
      * Mesajı okunabilir formatta döndürür.
      */

@@ -24,10 +24,13 @@ public class Ogun implements IOzetlenebilir {
     // region Getters and Setters
     public int getOgunID() { return ogunId; }
     public void setOgunID(int ogunID) { this.ogunId = ogunID; }
+    
     public LocalDate getTarih() { return tarih; }
     public void setTarih(LocalDate tarih) { this.tarih = tarih; }
+    
     public OgunTuru getOgunTuru() { return ogunTuru; }
     public void setOgunTuru(OgunTuru ogunTuru) { this.ogunTuru = ogunTuru; }
+
 
     /** Besin → gram haritasını döndürür. */
     public Map<Besin, Double> getBesinGramHaritasi() { return besinGramHaritasi; }
