@@ -171,36 +171,42 @@ public class DatabaseManager {
     }
 
     public static boolean kullaniciSil(int kullaniciId) {
-        String sqlMesajlar = "DELETE FROM mesajlar WHERE gonderen_id = ? OR alici_id = ?";
-        String sqlAntrenmanlar = "DELETE FROM antrenmanlar WHERE sporcu_id = ?";
-        String sqlKullanici = "DELETE FROM kullanicilar WHERE id = ?";
+        String[] deleteQueries = {
+            "DELETE FROM mesajlar WHERE gonderen_id = ? OR alici_id = ?",
+            "DELETE FROM ogun_besinler WHERE ogun_id IN (SELECT id FROM ogunler WHERE sporcu_id = ?)",
+            "DELETE FROM ogunler WHERE sporcu_id = ?",
+            "DELETE FROM antrenman_egzersizler WHERE antrenman_id IN (SELECT id FROM antrenmanlar WHERE sporcu_id = ?)",
+            "DELETE FROM antrenmanlar WHERE sporcu_id = ?",
+            "DELETE FROM gunluk_takip_supplementler WHERE takip_id IN (SELECT id FROM gunluk_takip WHERE sporcu_id = ?)",
+            "DELETE FROM gunluk_takip WHERE sporcu_id = ?",
+            "DELETE FROM hedefler WHERE sporcu_id = ?",
+            "DELETE FROM kullanicilar WHERE id = ?"
+        };
 
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
             conn.setAutoCommit(false); // Transaction başlat
             
-            try (PreparedStatement psMesaj = conn.prepareStatement(sqlMesajlar);
-                 PreparedStatement psAntrenman = conn.prepareStatement(sqlAntrenmanlar);
-                 PreparedStatement psKullanici = conn.prepareStatement(sqlKullanici)) {
-                 
-                 // Önce bu kullanıcıya ait mesajları sil
-                 psMesaj.setInt(1, kullaniciId);
-                 psMesaj.setInt(2, kullaniciId);
-                 psMesaj.executeUpdate();
-                 
-                 // Sporcuya atanmış antrenmanları sil
-                 psAntrenman.setInt(1, kullaniciId);
-                 psAntrenman.executeUpdate();
-                 
-                 // En son kullanıcıyı sil
-                 psKullanici.setInt(1, kullaniciId);
-                 int affected = psKullanici.executeUpdate();
-                 
-                 conn.commit(); // Başarılıysa onayla
-                 return affected > 0;
+            try {
+                int affectedRows = 0;
+                for (String sql : deleteQueries) {
+                    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                        ps.setInt(1, kullaniciId);
+                        if (sql.contains("OR alici_id = ?")) {
+                            ps.setInt(2, kullaniciId);
+                        }
+                        int affected = ps.executeUpdate();
+                        if (sql.equals("DELETE FROM kullanicilar WHERE id = ?")) {
+                            affectedRows = affected;
+                        }
+                    }
+                }
+                
+                conn.commit(); // Başarılıysa onayla
+                return affectedRows > 0;
             } catch (SQLException e) {
-                 conn.rollback();
-                 System.err.println("Kullanıcı silinirken hata (rollback): " + e.getMessage());
-                 return false;
+                conn.rollback();
+                System.err.println("Kullanıcı silinirken hata (rollback): " + e.getMessage());
+                return false;
             }
         } catch (SQLException e) {
             System.err.println("Bağlantı hatası: " + e.getMessage());

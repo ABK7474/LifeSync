@@ -4,31 +4,31 @@
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Maven](https://img.shields.io/badge/Maven-C71A22?style=for-the-badge&logo=apachemaven&logoColor=white)
 
-**LifeSync**, sporcuların ve antrenörlerin bir araya geldiği, beslenme, antrenman ve gelişim takibini kolaylaştıran kapsamlı bir masaüstü uygulamasıdır. Kullanıcıların hedeflerine ulaşmasını sağlamak için günlük kalori takibi, makro besin analizleri, egzersiz planlaması ve antrenör-sporcu iletişimini tek bir platformda birleştirir.
+**LifeSync**, sporcuların ve antrenörlerin bir araya geldiği, beslenme, antrenman ve gelişim takibini kolaylaştıran kapsamlı bir masaüstü uygulamasıdır. Kullanıcıların hedeflerine ulaşmasını sağlamak için günlük kalori takibi, makro besin analizleri, egzersiz planlaması ve antrenör-sporcu iletişimini modern ve sadeleştirilmiş tek bir platformda birleştirir.
 
 ## 🌟 Öne Çıkan Özellikler
 
 ### 👥 Çoklu Kullanıcı Rolleri
-- **Antrenör:** Sporcularını yönetebilir, onlara hedefler atayabilir, beslenme ve antrenman istatistiklerini detaylıca inceleyebilir ve toplu mesaj gönderebilir.
-- **Profesyonel Sporcu:** Kapsamlı makro ve mikro besin takibi, yoğun antrenman programları ve antrenör geri bildirimleriyle performansını zirveye taşır.
-- **Amatör Sporcu:** Temel kalori takibi ve günlük egzersiz kayıtlarıyla sağlıklı yaşama adım atar.
+- **Antrenör:** Merkezi bir sporcu yönetim paneli üzerinden sporcularına hedefler ve detaylı programlar atayabilir, kapsamlı **İstatistikler** sekmesi üzerinden beslenme ve antrenman ilerlemelerini tek ekranda analiz edebilir. Ayrıca, **Mesajlar** sekmesinden tüm sporcularına toplu duyurular veya özel mesajlar gönderebilir.
+- **Profesyonel & Amatör Sporcu:** Günlük öğün ve antrenman kayıtlarını basit bir arayüzle girer, antrenöründen gelen hedefleri, mesajları ve antrenmanları takip eder. Tüm kişisel bilgileri, şifre ve hesap ayarlarını birleşik **Profilim** sekmesinden kolayca yönetebilir.
 
 ### 🍏 Beslenme ve Öğün Takibi
-- Kapsamlı besin veritabanı (Protein, Karbonhidrat, Yağ oranları dahil).
-- Sabah, Öğle, Akşam, Ara Öğün ve Antrenman Öncesi/Sonrası gibi farklı öğün türleri.
-- Supplement (Takviye) kullanımı kayıtları.
-- Günlük alınan ve harcanan kalorinin net özeti.
+- Kapsamlı besin veritabanı ile sabah, öğle, akşam ve ara öğün kayıtları.
+- Gramaj bazlı otomatik kalori ve makro besin hesaplamaları.
+- Günlük alınan kalori, harcanan kalori ve net enerji dengesinin (kilo alma/verme eğilimi) otomatik takibi.
 
 ### 💪 Egzersiz ve Antrenman Modülü
-- Kardiyo, Güç (Ağırlık), Esneklik ve Spor Dalı spesifik antrenman türleri.
-- Süre, set, tekrar ve yakılan kalori bazlı egzersiz kayıtları.
+- Egzersizlerin set, tekrar ve ağırlık bazlı kayıt altına alınması.
+- Antrenör tarafından atanan detaylı antrenman programlarının görüntülenip onaylanması.
+- Tamamlanan antrenmanların oranları ve detaylarının istatistiklere yansıması.
 
 ### 📈 Gelişim ve Hedef Takibi
-- Kilo alma, kilo verme, kas kazanımı gibi özel hedefler belirleme.
-- Hedefe ne kadar yaklaşıldığını gösteren görsel ilerleme çubukları.
+- Kilo alma, kilo verme gibi sporcuya özel kalori, protein ve su hedeflerinin belirlenmesi.
+- Hedeflenen kaloriden ne kadar kaldığının hesaplanması ve antrenöre detaylı rapor olarak sunulması.
 
-### ✉️ İletişim (Mesajlaşma)
-- Antrenör ve sporcular arasında uygulama içi direkt mesajlaşma altyapısı.
+### ✉️ İletişim & Duyuru Sistemi
+- Antrenörler ve sporcular arasında kesintisiz, uygulama içi mesajlaşma.
+- Antrenörlerin tüm sporcularına tek tıkla **Toplu Duyuru** gönderebilme altyapısı.
 
 ## 🛠️ Kullanılan Teknolojiler
 
@@ -57,23 +57,20 @@ Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları i
    cd LifeSync
    ```
 
-3. Maven ile bağımlılıkları yükleyin ve projeyi derleyin:
+3. Bağımlılıkları yükleyin, projeyi derleyin ve uygulamayı başlatın:
    ```bash
-   mvn clean install
+   mvn clean compile exec:java
    ```
-
-4. Uygulamayı başlatın:
-   ```bash
-   mvn exec:java -Dexec.mainClass="com.lifesync.gui.MainFrame"
-   ```
+   *(Not: `pom.xml` içerisine `<sourceDirectory>` yapılandırması ve `exec.mainClass` eklendiği için bu komut projeyi direkt başlatacaktır.)*
 
 ## 📂 Proje Mimarisi
 
-- `com.lifesync` : Temel veri modelleri (Kullanici, Sporcu, Besin, Ogun, vs.) ve iş mantığı (servisler).
-- `com.lifesync.gui` : Kullanıcı arayüzü bileşenleri (`MainFrame.java`).
-- `DatabaseManager.java` : SQLite veritabanı işlemleri, tablo oluşturma ve CRUD operasyonları.
-- `AuthService.java` : Kullanıcı kayıt, giriş işlemleri ve şifreleme mekanizmaları.
+- `com.lifesync` : Temel veri modelleri (Kullanici, Sporcu, Besin, Ogun, vs.) ve iş mantığı servisleri.
+- `com.lifesync.gui` : Kullanıcı arayüzü bileşenleri. Uygulamanın merkezi giriş noktası `MainFrame.java` dosyasıdır.
+- `DatabaseManager.java` : SQLite veritabanı işlemleri, profil güncellemeleri ve tablo oluşturma.
+- `AuthService.java` : Kullanıcı kayıt, giriş işlemleri, oturum yönetimi ve hesap doğrulama.
 - `GunlukTakipService.java` : Günlük bazda besin tüketimi ve egzersiz harcaması hesaplamaları.
+- `VeriDeposu.java` : Bellek-içi (In-memory) önbellekleme ve JSON/TXT tabanlı veri kalıcılığı.
 
 ---
 *LifeSync ile hedeflerine daha hızlı ve planlı ulaş!* 🏆

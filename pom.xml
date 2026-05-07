@@ -11,6 +11,10 @@
         <exec.mainClass>com.lifesync.gui.MainFrame</exec.mainClass>
     </properties>
 
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+    </build>
+
     <dependencies>
         <!-- SQLite JDBC Driver -->
         <dependency>

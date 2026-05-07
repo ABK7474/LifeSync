@@ -18,9 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable tblSporcuListesi;
     private javax.swing.table.DefaultTableModel sporcuTableModel;
     private javax.swing.JButton btnAntrenorCikis;
-    private javax.swing.JButton btnProgramAta;
-    private javax.swing.JButton btnIlerlemeIncele;
-    private javax.swing.JTextArea txtIlerlemeRaporu;
+
 
     // Mesajlar için alanlar (Antrenör)
     private javax.swing.JTabbedPane antrenorSekmeler;
@@ -59,17 +57,11 @@ public class MainFrame extends javax.swing.JFrame {
         // Sporcu paneline antrenmanlar sekmesini ekle
         sporcuAntrenmanPaneliniOlustur();
         
-        // Sporcu paneline hesap ayarları (silme) sekmesini ekle
-        sporcuHesapAyarlariPaneliniOlustur();
-        
-        // Sporcu paneline Katalog Arama sekmesini ekle
-        katalogAramaPaneliniOlustur();
-        
         // Gunluk Takip sekmesini Ogun+Besin+Egzersiz tabanli yeni tasarima donustur
         gunlukTakipPaneliniYenile();
 
-        // Sporcu paneline Profil Duzenleme sekmesini ekle
-        sporcuProfilDuzenlemePaneliniOlustur();
+        // Profilim sekmesini yeniden oluştur (Bilgi + Düzenleme + Hesap Ayarları)
+        sporcuProfilimPaneliniYenile();
 
         // Sporcu paneline Hedef Belirleme sekmesini ekle
         sporcuHedefBelirlePaneliniOlustur();
@@ -707,38 +699,83 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGunlukKaydetActionPerformed
 
-    /**
-     * Sporcu paneline "Hesap Ayarları" sekmesi ekler.
-     * Hesabı silmek için onay checkboxu zorunludur.
-     */
-    private void sporcuHesapAyarlariPaneliniOlustur() {
+    private void sporcuProfilimPaneliniYenile() {
+        pnlProfilDetay.removeAll();
+        pnlProfilDetay.setLayout(new java.awt.BorderLayout(10, 10));
+
+        javax.swing.JPanel pnlMain = new javax.swing.JPanel();
+        pnlMain.setLayout(new javax.swing.BoxLayout(pnlMain, javax.swing.BoxLayout.Y_AXIS));
+        pnlMain.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // 1. Profil Bilgileri
+        javax.swing.JPanel pnlBilgi = new javax.swing.JPanel(new java.awt.GridLayout(5, 1, 5, 5));
+        pnlBilgi.setBorder(javax.swing.BorderFactory.createTitledBorder("Profil Bilgileri"));
+        pnlBilgi.setMaximumSize(new java.awt.Dimension(500, 150));
+        pnlBilgi.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        pnlBilgi.add(lblProfilAd);
+        pnlBilgi.add(lblProfilTip);
+        pnlBilgi.add(lblProfilBoy);
+        pnlBilgi.add(lblProfilKilo);
+        pnlBilgi.add(lblProfilEkstra);
+        pnlMain.add(pnlBilgi);
+        pnlMain.add(javax.swing.Box.createVerticalStrut(20));
+
+        // 2. Profil Düzenle
+        javax.swing.JPanel pnlDuzenle = new javax.swing.JPanel();
+        pnlDuzenle.setLayout(new javax.swing.BoxLayout(pnlDuzenle, javax.swing.BoxLayout.Y_AXIS));
+        pnlDuzenle.setBorder(javax.swing.BorderFactory.createTitledBorder("Profil Düzenle"));
+        pnlDuzenle.setMaximumSize(new java.awt.Dimension(500, 130));
+        pnlDuzenle.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        javax.swing.JPanel formPanel = new javax.swing.JPanel(new java.awt.GridLayout(2, 2, 10, 10));
+        formPanel.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        javax.swing.JTextField txtBoyDuzenle = new javax.swing.JTextField(10);
+        javax.swing.JTextField txtKiloDuzenle = new javax.swing.JTextField(10);
+
+        formPanel.add(new javax.swing.JLabel("Boy (cm):"));
+        formPanel.add(txtBoyDuzenle);
+        formPanel.add(new javax.swing.JLabel("Kilo (kg):"));
+        formPanel.add(txtKiloDuzenle);
+        pnlDuzenle.add(formPanel);
+        pnlDuzenle.add(javax.swing.Box.createVerticalStrut(10));
+
+        javax.swing.JButton btnKaydet = new javax.swing.JButton("Değişiklikleri Kaydet");
+        btnKaydet.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        pnlDuzenle.add(btnKaydet);
+        javax.swing.JLabel lblSonuc = new javax.swing.JLabel(" ");
+        lblSonuc.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        pnlDuzenle.add(lblSonuc);
+
+        pnlMain.add(pnlDuzenle);
+        pnlMain.add(javax.swing.Box.createVerticalStrut(20));
+
+        // 3. Hesap Ayarları
         javax.swing.JPanel pnlAyarlar = new javax.swing.JPanel();
         pnlAyarlar.setLayout(new javax.swing.BoxLayout(pnlAyarlar, javax.swing.BoxLayout.Y_AXIS));
-        pnlAyarlar.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        pnlAyarlar.setBorder(javax.swing.BorderFactory.createTitledBorder("Hesap Ayarları"));
+        pnlAyarlar.setMaximumSize(new java.awt.Dimension(500, 150));
+        pnlAyarlar.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
 
-        // Uyarı bantı
         javax.swing.JLabel lblUyari = new javax.swing.JLabel(
             "<html><b>Tehlikeli Bölge</b> — Bu işlemler geri alınamaz!</html>");
         lblUyari.setForeground(java.awt.Color.RED);
         lblUyari.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
         pnlAyarlar.add(lblUyari);
-        pnlAyarlar.add(javax.swing.Box.createVerticalStrut(16));
+        pnlAyarlar.add(javax.swing.Box.createVerticalStrut(10));
 
-        // Onay checkboxu
         javax.swing.JCheckBox chkOnay = new javax.swing.JCheckBox(
             "Hesabımın kalici olarak silinecegini onayliyorum.");
         chkOnay.setForeground(new java.awt.Color(150, 0, 0));
         chkOnay.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
         pnlAyarlar.add(chkOnay);
-        pnlAyarlar.add(javax.swing.Box.createVerticalStrut(12));
+        pnlAyarlar.add(javax.swing.Box.createVerticalStrut(10));
 
-        // Hesabi Sil butonu
         javax.swing.JButton btnSporcuHesabiSil = new javax.swing.JButton("Hesabimi Sil");
         btnSporcuHesabiSil.setForeground(java.awt.Color.RED);
-        btnSporcuHesabiSil.setEnabled(false); // Baslangiçta devre dışı
+        btnSporcuHesabiSil.setEnabled(false);
         btnSporcuHesabiSil.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
 
-        // Checkbox değişince butonu aktif/pasif yap
         chkOnay.addItemListener(e ->
             btnSporcuHesabiSil.setEnabled(chkOnay.isSelected())
         );
@@ -751,12 +788,45 @@ public class MainFrame extends javax.swing.JFrame {
                 return;
             }
             hesapSilOnayiIste();
-            // Işlem sonrası checkboxu sıfırla
             chkOnay.setSelected(false);
         });
 
         pnlAyarlar.add(btnSporcuHesabiSil);
-        pnlProfilSekmesi.addTab("Hesap Ayarlari", pnlAyarlar);
+        pnlMain.add(pnlAyarlar);
+
+        // Olay dinleyiciler ve veri doldurma
+        pnlProfilSekmesi.addChangeListener(e -> {
+            if (pnlProfilSekmesi.getSelectedComponent() != null &&
+                pnlProfilSekmesi.getSelectedComponent() == pnlProfilDetay) {
+                com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+                if (aktif instanceof com.lifesync.Sporcu) {
+                    com.lifesync.Sporcu s = (com.lifesync.Sporcu) aktif;
+                    txtBoyDuzenle.setText(String.valueOf(s.getBoy()));
+                    txtKiloDuzenle.setText(String.valueOf(s.getKilo()));
+                }
+            }
+        });
+
+        btnKaydet.addActionListener(ev -> {
+            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+            if (!(aktif instanceof com.lifesync.Sporcu)) return;
+            com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
+            try {
+                double yeniBoy = Double.parseDouble(txtBoyDuzenle.getText().trim());
+                double yeniKilo = Double.parseDouble(txtKiloDuzenle.getText().trim());
+                sporcu.setBoy(yeniBoy);
+                sporcu.setKilo(yeniKilo);
+                com.lifesync.DatabaseManager.profilGuncelle(sporcu);
+                sporcuProfiliniDoldur(); // Etiketleri günceller
+                lblSonuc.setText("Profil başarıyla güncellendi!");
+            } catch (NumberFormatException ex) {
+                lblSonuc.setText("Hata: Boy ve Kilo sayısal olmalıdır.");
+            }
+        });
+
+        pnlProfilDetay.add(new javax.swing.JScrollPane(pnlMain), java.awt.BorderLayout.CENTER);
+        pnlProfilDetay.revalidate();
+        pnlProfilDetay.repaint();
     }
 
     /**
@@ -819,102 +889,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlSporcuPaneli.repaint();
     }
 
-    /**
-     * Ortak IBilgiGetirebilir arayüzünü kullanarak polimorfik olarak detay gösterir.
-     */
-    public void detayiEkrandaGoster(com.lifesync.IBilgiGetirebilir nesne) {
-        if (nesne != null) {
-            String detay = nesne.bilgiGetir();
-            javax.swing.JOptionPane.showMessageDialog(this, detay, "Detay Bilgisi", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
 
-    /**
-     * Tüm IBilgiGetirebilir öğelerinin (Besin, Egzersiz, Supplement) tek bir listede arandığı sekme.
-     */
-    private void katalogAramaPaneliniOlustur() {
-        javax.swing.JPanel pnlArama = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
-        pnlArama.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        // Üst panel (Arama çubuğu)
-        javax.swing.JPanel pnlUst = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-        pnlUst.add(new javax.swing.JLabel("Aranacak Kelime:"));
-        javax.swing.JTextField txtArama = new javax.swing.JTextField(20);
-        pnlUst.add(txtArama);
-        javax.swing.JButton btnAra = new javax.swing.JButton("Ara");
-        pnlUst.add(btnAra);
-
-        // Orta panel (Liste)
-        javax.swing.DefaultListModel<com.lifesync.IBilgiGetirebilir> aramaModel = new javax.swing.DefaultListModel<>();
-        javax.swing.JList<com.lifesync.IBilgiGetirebilir> lstSonuclar = new javax.swing.JList<>(aramaModel);
-        lstSonuclar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        
-        // Custom renderer for JList to show summary instead of full toString
-        lstSonuclar.setCellRenderer(new javax.swing.DefaultListCellRenderer() {
-            @Override
-            public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof com.lifesync.IBilgiGetirebilir) {
-                    com.lifesync.IBilgiGetirebilir item = (com.lifesync.IBilgiGetirebilir) value;
-                    if (item instanceof com.lifesync.Besin) {
-                        setText("[Besin] " + ((com.lifesync.Besin)item).getBesinAdi());
-                    } else if (item instanceof com.lifesync.Egzersiz) {
-                        setText("[Egzersiz] " + ((com.lifesync.Egzersiz)item).getEgzersizAdi());
-                    } else if (item instanceof com.lifesync.Supplement) {
-                        setText("[Supplement] " + ((com.lifesync.Supplement)item).getSupplementAdi());
-                    }
-                }
-                return this;
-            }
-        });
-
-        pnlArama.add(pnlUst, java.awt.BorderLayout.NORTH);
-        pnlArama.add(new javax.swing.JScrollPane(lstSonuclar), java.awt.BorderLayout.CENTER);
-
-        // Alt panel (Detay göster butonu)
-        javax.swing.JPanel pnlAlt = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-        javax.swing.JButton btnDetay = new javax.swing.JButton("Seçilenin Detayını Göster");
-        pnlAlt.add(btnDetay);
-        pnlArama.add(pnlAlt, java.awt.BorderLayout.SOUTH);
-
-        // Olay dinleyicileri
-        btnAra.addActionListener(e -> {
-            aramaModel.clear();
-            String kelime = txtArama.getText().toLowerCase();
-            java.util.List<com.lifesync.IBilgiGetirebilir> tumKatalog = com.lifesync.VeriDeposu.tumKataloguGetir();
-            
-            for (com.lifesync.IBilgiGetirebilir item : tumKatalog) {
-                if (item.bilgiGetir().toLowerCase().contains(kelime)) {
-                    aramaModel.addElement(item);
-                }
-            }
-            if (aramaModel.isEmpty()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Sonuç bulunamadı.", "Bilgi", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-
-        btnDetay.addActionListener(e -> {
-            com.lifesync.IBilgiGetirebilir secilen = lstSonuclar.getSelectedValue();
-            if (secilen != null) {
-                detayiEkrandaGoster(secilen);
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Lütfen listeden bir öğe seçin.", "Uyarı", javax.swing.JOptionPane.WARNING_MESSAGE);
-            }
-        });
-
-        // Çift tıklama desteği
-        lstSonuclar.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 2) {
-                    com.lifesync.IBilgiGetirebilir secilen = lstSonuclar.getSelectedValue();
-                    if (secilen != null) detayiEkrandaGoster(secilen);
-                }
-            }
-        });
-
-        pnlProfilSekmesi.addTab("Katalog Arama", pnlArama);
-    }
 
     /**
      * pnlGunlukTakip panel icerigini tamamen temizler ve Ogun+Besin+Egzersiz
@@ -1352,10 +1327,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         javax.swing.JPanel sagButonPaneli = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 0));
 
-        javax.swing.JButton btnAntrenorHesabiSil = new javax.swing.JButton("Hesabımı Sil");
-        btnAntrenorHesabiSil.setForeground(java.awt.Color.RED);
-        btnAntrenorHesabiSil.addActionListener(e -> hesapSilOnayiIste());
-        sagButonPaneli.add(btnAntrenorHesabiSil);
+
 
         btnAntrenorCikis = new javax.swing.JButton("Çıkış Yap");
         btnAntrenorCikis.addActionListener(e -> {
@@ -1389,40 +1361,48 @@ public class MainFrame extends javax.swing.JFrame {
 
         pnlSporcuYonetimi.add(sporcuScrollPane, java.awt.BorderLayout.CENTER);
 
-        javax.swing.JPanel altPanel = new javax.swing.JPanel(new java.awt.BorderLayout(5, 5));
-        altPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-
-        javax.swing.JPanel butonPanel = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 5));
-
-        btnProgramAta = new javax.swing.JButton("Sporcuya Program Ata");
-        btnProgramAta.addActionListener(e -> programAtaIslemi());
-        butonPanel.add(btnProgramAta);
-
-        btnIlerlemeIncele = new javax.swing.JButton("İlerleme İncele");
-        btnIlerlemeIncele.addActionListener(e -> ilerlemeInceleIslemi());
-        butonPanel.add(btnIlerlemeIncele);
-
-        javax.swing.JButton btnHizliMesaj = new javax.swing.JButton("Kullanıcıya Mesaj Gönder");
-        btnHizliMesaj.addActionListener(e -> hizliMesajGonderIslemi());
-        butonPanel.add(btnHizliMesaj);
-
-        altPanel.add(butonPanel, java.awt.BorderLayout.NORTH);
-
-        txtIlerlemeRaporu = new javax.swing.JTextArea(5, 40);
-        txtIlerlemeRaporu.setEditable(false);
-        txtIlerlemeRaporu.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 13));
-        txtIlerlemeRaporu.setText("Sporcu seçip 'İlerleme İncele' butonuna basın...");
-        javax.swing.JScrollPane raporScrollPane = new javax.swing.JScrollPane(txtIlerlemeRaporu);
-        raporScrollPane.setBorder(javax.swing.BorderFactory.createTitledBorder("İlerleme Raporu"));
-
-        altPanel.add(raporScrollPane, java.awt.BorderLayout.CENTER);
-        pnlSporcuYonetimi.add(altPanel, java.awt.BorderLayout.SOUTH);
-
         antrenorSekmeler.addTab("Sporcu Yönetimi", pnlSporcuYonetimi);
 
         // ================= 2. SEKME: MESAJLAR =================
         javax.swing.JPanel pnlMesajlar = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
         pnlMesajlar.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Üst panel: sağ üstte Duyuru Gönder butonu
+        javax.swing.JPanel pnlMesajUst = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 0));
+        javax.swing.JButton btnDuyuruGonder = new javax.swing.JButton("Duyuru Gönder");
+        btnDuyuruGonder.addActionListener(ev -> {
+            javax.swing.JTextArea txtDuyuruIcerik = new javax.swing.JTextArea(5, 30);
+            javax.swing.JScrollPane scrollDuyuru = new javax.swing.JScrollPane(txtDuyuruIcerik);
+            javax.swing.JPanel duyuruPanel = new javax.swing.JPanel(new java.awt.BorderLayout(5, 5));
+            duyuruPanel.add(new javax.swing.JLabel("Tüm sporculara gönderilecek duyuru metni:"), java.awt.BorderLayout.NORTH);
+            duyuruPanel.add(scrollDuyuru, java.awt.BorderLayout.CENTER);
+            int sonuc = javax.swing.JOptionPane.showConfirmDialog(this, duyuruPanel, "Duyuru Gönder",
+                javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.PLAIN_MESSAGE);
+            if (sonuc == javax.swing.JOptionPane.OK_OPTION) {
+                String icerik = txtDuyuruIcerik.getText().trim();
+                if (icerik.isEmpty()) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Duyuru metni boş olamaz.", "Uyarı", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+                int gonderilen = 0;
+                for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
+                    if (k instanceof com.lifesync.Sporcu) {
+                        com.lifesync.Mesaj m = new com.lifesync.Mesaj(
+                            com.lifesync.VeriDeposu.yeniMesajId(),
+                            aktif.getKullaniciID(), k.getKullaniciID(),
+                            aktif.getAdSoyad(), k.getAdSoyad(),
+                            "[DUYURU] " + icerik);
+                        com.lifesync.VeriDeposu.mesajEkle(m);
+                        gonderilen++;
+                    }
+                }
+                javax.swing.JOptionPane.showMessageDialog(this, gonderilen + " sporcuya duyuru gönderildi!", "Başarılı", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                antrenorMesajGecmisiniYukle();
+            }
+        });
+        pnlMesajUst.add(btnDuyuruGonder);
+        pnlMesajlar.add(pnlMesajUst, java.awt.BorderLayout.NORTH);
 
         modelAntrenorMesajSporcular = new javax.swing.DefaultListModel<>();
         lstAntrenorMesajSporcular = new javax.swing.JList<>(modelAntrenorMesajSporcular);
@@ -1502,58 +1482,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         antrenorSekmeler.addTab("Hedef Ata", pnlHedefAta);
 
-        // ================= 4. SEKME: BESLENME RAPORU =================
-        javax.swing.JPanel pnlBeslRapor = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
-        pnlBeslRapor.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        javax.swing.JPanel pnlBeslUst = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-        javax.swing.JButton btnBeslRaporGoster = new javax.swing.JButton("Secili Sporcunun Beslenme Raporunu Goster");
-        pnlBeslUst.add(btnBeslRaporGoster);
-        pnlBeslRapor.add(pnlBeslUst, java.awt.BorderLayout.NORTH);
-
-        javax.swing.JTextArea txtBeslRapor = new javax.swing.JTextArea();
-        txtBeslRapor.setEditable(false);
-        txtBeslRapor.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 13));
-        txtBeslRapor.setText("Sporcu secip butona basin...");
-        pnlBeslRapor.add(new javax.swing.JScrollPane(txtBeslRapor), java.awt.BorderLayout.CENTER);
-
-        btnBeslRaporGoster.addActionListener(ev -> {
-            com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
-            if (sporcu == null) return;
-            StringBuilder sb = new StringBuilder();
-            sb.append("=== ").append(sporcu.getAdSoyad()).append(" — Beslenme Raporu ===\n\n");
-            java.time.LocalDate bugun = java.time.LocalDate.now();
-            double gunlukToplam = 0;
-            boolean veriVar = false;
-            for (com.lifesync.Ogun o : sporcu.getOgunListesi()) {
-                if (o.getTarih().equals(bugun)) {
-                    veriVar = true;
-                    sb.append("[ ").append(o.getOgunTuru()).append(" ]\n");
-                    for (java.util.Map.Entry<com.lifesync.Besin, Double> e : o.getBesinGramHaritasi().entrySet()) {
-                        double kcal = (e.getValue() / 100.0) * e.getKey().getKalori();
-                        sb.append("  ").append(e.getKey().getBesinAdi())
-                          .append(" — ").append(String.format("%.0f", e.getValue())).append(" g")
-                          .append(" — ").append(String.format("%.1f", kcal)).append(" kcal\n");
-                        gunlukToplam += kcal;
-                    }
-                    sb.append("  Ogun Toplam: ").append(String.format("%.1f", o.toplamKaloriHesapla())).append(" kcal\n\n");
-                }
-            }
-            if (!veriVar) {
-                sb.append("Bugun icin kayitli ogun bulunmuyor.\n");
-            } else {
-                sb.append("--- GUNLUK TOPLAM: ").append(String.format("%.1f", gunlukToplam)).append(" kcal ---\n");
-                if (sporcu.getHedef() != null) {
-                    double fark = sporcu.getHedef().getHedefKalori() - gunlukToplam;
-                    sb.append("Hedef Kalori: ").append(sporcu.getHedef().getHedefKalori()).append(" kcal\n");
-                    sb.append("Kalan: ").append(String.format("%.1f", fark)).append(" kcal\n");
-                }
-            }
-            txtBeslRapor.setText(sb.toString());
-        });
-        antrenorSekmeler.addTab("Beslenme Raporu", pnlBeslRapor);
-
-        // ================= 5. SEKME: ISTATISTIKLER =================
+        // ================= 4. SEKME: ISTATISTIKLER (Beslenme Raporu + Ilerleme dahil) =================
         javax.swing.JPanel pnlIstatistik = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
         pnlIstatistik.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -1572,12 +1501,20 @@ public class MainFrame extends javax.swing.JFrame {
             com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
             if (sporcu == null) return;
             StringBuilder sb = new StringBuilder();
-            sb.append("=== ").append(sporcu.getAdSoyad()).append(" — Istatistik Ozeti ===\n\n");
+            sb.append("=== ").append(sporcu.getAdSoyad()).append(" — Istatistik & Ilerleme Ozeti ===\n\n");
             sb.append("Boy: ").append(sporcu.getBoy()).append(" cm\n");
             sb.append("Kilo: ").append(sporcu.getKilo()).append(" kg\n");
+            sb.append("Profil: ").append(sporcu.sporcuProfilOzeti()).append("\n");
             sb.append("Gunluk Kalori Ihtiyaci: ").append(String.format("%.0f", sporcu.gunlukKaloriIhtiyaciHesapla())).append(" kcal\n\n");
 
-            // Antrenman istatistikleri
+            // --- ILERLEME ---
+            com.lifesync.Kullanici aktifAntrenor = com.lifesync.AuthService.getAktifKullanici();
+            if (aktifAntrenor instanceof com.lifesync.Antrenor) {
+                sb.append("--- Ilerleme ---\n");
+                sb.append(((com.lifesync.Antrenor) aktifAntrenor).ilerlemeIncele(sporcu)).append("\n\n");
+            }
+
+            // --- ANTRENMAN ISTATISTIKLERI ---
             int toplam = sporcu.getAntrenmanListesi().size();
             int tamamlanan = 0;
             for (com.lifesync.Antrenman a : sporcu.getAntrenmanListesi()) {
@@ -1590,17 +1527,48 @@ public class MainFrame extends javax.swing.JFrame {
             if (toplam > 0) {
                 sb.append("Tamamlanma Orani: %").append(String.format("%.0f", (tamamlanan * 100.0 / toplam))).append("\n");
             }
+            sb.append("\nAntrenman Detaylari:\n");
+            for (com.lifesync.Antrenman a : sporcu.getAntrenmanListesi()) {
+                sb.append("  • ").append(a.ozetGetir()).append("\n");
+            }
 
-            // Ogun istatistikleri
-            sb.append("\n--- Beslenme ---\n");
+            // --- BESLENME RAPORU ---
+            sb.append("\n--- Beslenme Raporu ---\n");
             sb.append("Toplam Ogun Sayisi: ").append(sporcu.getOgunListesi().size()).append("\n");
+            java.time.LocalDate bugun = java.time.LocalDate.now();
+            double gunlukToplam = 0;
+            boolean veriVar = false;
+            for (com.lifesync.Ogun o : sporcu.getOgunListesi()) {
+                if (o.getTarih().equals(bugun)) {
+                    veriVar = true;
+                    sb.append("  [ ").append(o.getOgunTuru()).append(" ]\n");
+                    for (java.util.Map.Entry<com.lifesync.Besin, Double> e : o.getBesinGramHaritasi().entrySet()) {
+                        double kcal = (e.getValue() / 100.0) * e.getKey().getKalori();
+                        sb.append("    ").append(e.getKey().getBesinAdi())
+                          .append(" — ").append(String.format("%.0f", e.getValue())).append(" g")
+                          .append(" — ").append(String.format("%.1f", kcal)).append(" kcal\n");
+                        gunlukToplam += kcal;
+                    }
+                    sb.append("    Ogun Toplam: ").append(String.format("%.1f", o.toplamKaloriHesapla())).append(" kcal\n");
+                }
+            }
+            if (!veriVar) {
+                sb.append("  Bugun icin kayitli ogun bulunmuyor.\n");
+            } else {
+                sb.append("  GUNLUK TOPLAM: ").append(String.format("%.1f", gunlukToplam)).append(" kcal\n");
+                if (sporcu.getHedef() != null) {
+                    double fark = sporcu.getHedef().getHedefKalori() - gunlukToplam;
+                    sb.append("  Hedef Kalori: ").append(sporcu.getHedef().getHedefKalori()).append(" kcal\n");
+                    sb.append("  Kalan: ").append(String.format("%.1f", fark)).append(" kcal\n");
+                }
+            }
             double toplamKalori = 0;
             for (com.lifesync.Ogun o : sporcu.getOgunListesi()) {
                 toplamKalori += o.toplamKaloriHesapla();
             }
-            sb.append("Tum Zamanlarda Alinan Toplam Kalori: ").append(String.format("%.0f", toplamKalori)).append(" kcal\n");
+            sb.append("  Tum Zamanlarda Alinan Toplam Kalori: ").append(String.format("%.0f", toplamKalori)).append(" kcal\n");
 
-            // Hedef durumu
+            // --- HEDEF ---
             sb.append("\n--- Hedef ---\n");
             sb.append(sporcu.genelHedefDurumuGetir()).append("\n");
 
@@ -1608,46 +1576,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         antrenorSekmeler.addTab("Istatistikler", pnlIstatistik);
 
-        // ================= 6. SEKME: DUYURU GONDERME =================
-        javax.swing.JPanel pnlDuyuru = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
-        pnlDuyuru.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        pnlDuyuru.add(new javax.swing.JLabel("Tum sporculara toplu mesaj gonderin:"), java.awt.BorderLayout.NORTH);
-
-        javax.swing.JTextArea txtDuyuruIcerik = new javax.swing.JTextArea(5, 40);
-        txtDuyuruIcerik.setBorder(javax.swing.BorderFactory.createTitledBorder("Duyuru Metni"));
-        pnlDuyuru.add(new javax.swing.JScrollPane(txtDuyuruIcerik), java.awt.BorderLayout.CENTER);
-
-        javax.swing.JPanel pnlDuyuruAlt = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-        javax.swing.JButton btnDuyuruGonder = new javax.swing.JButton("Tum Sporculara Gonder");
-        javax.swing.JLabel lblDuyuruSonuc = new javax.swing.JLabel(" ");
-        pnlDuyuruAlt.add(btnDuyuruGonder);
-        pnlDuyuruAlt.add(lblDuyuruSonuc);
-        pnlDuyuru.add(pnlDuyuruAlt, java.awt.BorderLayout.SOUTH);
-
-        btnDuyuruGonder.addActionListener(ev -> {
-            String icerik = txtDuyuruIcerik.getText().trim();
-            if (icerik.isEmpty()) {
-                lblDuyuruSonuc.setText("Duyuru metni bos olamaz.");
-                return;
-            }
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            int gonderilen = 0;
-            for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
-                if (k instanceof com.lifesync.Sporcu) {
-                    com.lifesync.Mesaj m = new com.lifesync.Mesaj(
-                        com.lifesync.VeriDeposu.yeniMesajId(),
-                        aktif.getKullaniciID(), k.getKullaniciID(),
-                        aktif.getAdSoyad(), k.getAdSoyad(),
-                        "[DUYURU] " + icerik);
-                    com.lifesync.VeriDeposu.mesajEkle(m);
-                    gonderilen++;
-                }
-            }
-            txtDuyuruIcerik.setText("");
-            lblDuyuruSonuc.setText(gonderilen + " sporcuya duyuru gonderildi!");
-        });
-        antrenorSekmeler.addTab("Duyuru Gonder", pnlDuyuru);
 
         // ================= 7. SEKME: DETAYLI ANTRENMAN PROGRAMI =================
         javax.swing.JPanel pnlDetayliProgram = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
@@ -1753,23 +1682,49 @@ public class MainFrame extends javax.swing.JFrame {
         pnlAntrenorProfil.add(lblApSporcuSayisi);
         pnlAntrenorProfil.add(javax.swing.Box.createVerticalStrut(20));
 
-        // Profil duzenleme
-        javax.swing.JPanel apFormPanel = new javax.swing.JPanel(new java.awt.GridLayout(1, 2, 10, 10));
-        apFormPanel.setMaximumSize(new java.awt.Dimension(400, 40));
-        apFormPanel.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-        javax.swing.JTextField txtApAdDuzenle = new javax.swing.JTextField();
-        apFormPanel.add(new javax.swing.JLabel("Yeni Ad Soyad:"));
-        apFormPanel.add(txtApAdDuzenle);
-        pnlAntrenorProfil.add(apFormPanel);
-        pnlAntrenorProfil.add(javax.swing.Box.createVerticalStrut(10));
+        // Hesap Ayarlari (Hesabi Sil)
+        javax.swing.JPanel pnlApAyarlar = new javax.swing.JPanel();
+        pnlApAyarlar.setLayout(new javax.swing.BoxLayout(pnlApAyarlar, javax.swing.BoxLayout.Y_AXIS));
+        pnlApAyarlar.setBorder(javax.swing.BorderFactory.createTitledBorder("Hesap Ayarları"));
+        pnlApAyarlar.setMaximumSize(new java.awt.Dimension(500, 150));
+        pnlApAyarlar.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
 
-        javax.swing.JButton btnApKaydet = new javax.swing.JButton("Guncelle");
-        btnApKaydet.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-        javax.swing.JLabel lblApSonuc = new javax.swing.JLabel(" ");
-        lblApSonuc.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-        pnlAntrenorProfil.add(btnApKaydet);
-        pnlAntrenorProfil.add(javax.swing.Box.createVerticalStrut(6));
-        pnlAntrenorProfil.add(lblApSonuc);
+        javax.swing.JLabel lblApUyari = new javax.swing.JLabel(
+            "<html><b>Tehlikeli Bölge</b> — Bu işlemler geri alınamaz!</html>");
+        lblApUyari.setForeground(java.awt.Color.RED);
+        lblApUyari.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        pnlApAyarlar.add(lblApUyari);
+        pnlApAyarlar.add(javax.swing.Box.createVerticalStrut(10));
+
+        javax.swing.JCheckBox chkApOnay = new javax.swing.JCheckBox(
+            "Hesabımın kalıcı olarak silineceğini onaylıyorum.");
+        chkApOnay.setForeground(new java.awt.Color(150, 0, 0));
+        chkApOnay.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        pnlApAyarlar.add(chkApOnay);
+        pnlApAyarlar.add(javax.swing.Box.createVerticalStrut(10));
+
+        javax.swing.JButton btnApHesapSil = new javax.swing.JButton("Hesabımı Sil");
+        btnApHesapSil.setForeground(java.awt.Color.RED);
+        btnApHesapSil.setEnabled(false);
+        btnApHesapSil.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        chkApOnay.addItemListener(e ->
+            btnApHesapSil.setEnabled(chkApOnay.isSelected())
+        );
+
+        btnApHesapSil.addActionListener(e -> {
+            if (!chkApOnay.isSelected()) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Lütfen önce onay kutucuğunu işaretleyin.",
+                    "Onay Gerekli", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            hesapSilOnayiIste();
+            chkApOnay.setSelected(false);
+        });
+
+        pnlApAyarlar.add(btnApHesapSil);
+        pnlAntrenorProfil.add(pnlApAyarlar);
 
         // Sekme acildiginda profili doldur
         antrenorSekmeler.addChangeListener(e -> {
@@ -1778,7 +1733,6 @@ public class MainFrame extends javax.swing.JFrame {
                 if (aktif != null) {
                     lblApAd.setText("Ad Soyad: " + aktif.getAdSoyad());
                     lblApEmail.setText("Email: " + aktif.getEmail());
-                    txtApAdDuzenle.setText(aktif.getAdSoyad());
                     int spSayisi = 0;
                     for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
                         if (k instanceof com.lifesync.Sporcu) spSayisi++;
@@ -1786,20 +1740,6 @@ public class MainFrame extends javax.swing.JFrame {
                     lblApSporcuSayisi.setText("Sistemdeki Sporcu Sayisi: " + spSayisi);
                 }
             }
-        });
-
-        btnApKaydet.addActionListener(ev -> {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (aktif == null) return;
-            String yeniAd = txtApAdDuzenle.getText().trim();
-            if (yeniAd.isEmpty()) {
-                lblApSonuc.setText("Ad bos olamaz.");
-                return;
-            }
-            aktif.setAdSoyad(yeniAd);
-            com.lifesync.DatabaseManager.profilGuncelle(aktif);
-            lblApAd.setText("Ad Soyad: " + yeniAd);
-            lblApSonuc.setText("Profil guncellendi!");
         });
         antrenorSekmeler.addTab("Profilim", pnlAntrenorProfil);
 
@@ -1880,23 +1820,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
 
-        if(txtIlerlemeRaporu != null) txtIlerlemeRaporu.setText("Sporcu seçip 'İlerleme İncele' butonuna basın...");
+
         if(txtAntrenorMesajGecmisi != null) txtAntrenorMesajGecmisi.setText("");
     }
 
-    private void hizliMesajGonderIslemi() {
-        com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
-        if (sporcu == null) return;
-        
-        String icerik = javax.swing.JOptionPane.showInputDialog(this, sporcu.getAdSoyad() + " adlı sporcuya mesajınız:", "Mesaj Gönder", javax.swing.JOptionPane.PLAIN_MESSAGE);
-        if (icerik != null && !icerik.trim().isEmpty()) {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            com.lifesync.Mesaj yeniMesaj = new com.lifesync.Mesaj(com.lifesync.VeriDeposu.yeniMesajId(), aktif.getKullaniciID(), sporcu.getKullaniciID(), aktif.getAdSoyad(), sporcu.getAdSoyad(), icerik.trim());
-            com.lifesync.VeriDeposu.mesajEkle(yeniMesaj);
-            javax.swing.JOptionPane.showMessageDialog(this, "Mesaj başarıyla gönderildi.");
-            antrenorMesajGecmisiniYukle();
-        }
-    }
+
 
     private void antrenorMesajGecmisiniYukle() {
         if(lstAntrenorMesajSporcular == null) return;
@@ -1984,66 +1912,7 @@ public class MainFrame extends javax.swing.JFrame {
 
 
 
-    private void programAtaIslemi() {
-        com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
-        if (sporcu == null) return;
 
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-        if (!(aktif instanceof com.lifesync.Antrenor)) return;
-        com.lifesync.Antrenor antrenor = (com.lifesync.Antrenor) aktif;
-
-        com.lifesync.AntrenmanTuru[] turler = com.lifesync.AntrenmanTuru.values();
-        String[] turIsimleri = new String[turler.length];
-        for (int i = 0; i < turler.length; i++) {
-            turIsimleri[i] = turler[i].name();
-        }
-
-        String secim = (String) javax.swing.JOptionPane.showInputDialog(
-            this, "Antrenman türünü seçin:", "Program Ata",
-            javax.swing.JOptionPane.QUESTION_MESSAGE, null, turIsimleri, turIsimleri[0]
-        );
-
-        if (secim == null) return; 
-
-        com.lifesync.AntrenmanTuru secilenTur = com.lifesync.AntrenmanTuru.valueOf(secim);
-        int yeniId = (int) (Math.random() * 10000);
-        com.lifesync.Antrenman yeniAntrenman = new com.lifesync.Antrenman(yeniId, java.time.LocalDate.now(), secilenTur);
-
-        antrenor.programAta(sporcu, yeniAntrenman);
-        com.lifesync.VeriDeposu.antrenmanlariDiskeYaz();
-
-        javax.swing.JOptionPane.showMessageDialog(this,
-            sporcu.getAdSoyad() + " adlı sporcuya '" + secim + "' antrenmanı atandı.",
-            "Program Atama Başarılı", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
-        txtIlerlemeRaporu.setText(antrenor.ilerlemeIncele(sporcu)
-            + "\nAtanan Antrenman: " + yeniAntrenman.ozetGetir());
-    }
-
-    private void ilerlemeInceleIslemi() {
-        com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
-        if (sporcu == null) return;
-
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-        if (!(aktif instanceof com.lifesync.Antrenor)) return;
-        com.lifesync.Antrenor antrenor = (com.lifesync.Antrenor) aktif;
-
-        StringBuilder rapor = new StringBuilder();
-        rapor.append("=== İLERLEME RAPORU ===").append("\n");
-        rapor.append(antrenor.ilerlemeIncele(sporcu)).append("\n\n");
-
-        rapor.append("Profil: ").append(sporcu.sporcuProfilOzeti()).append("\n");
-        rapor.append("Günlük Kalori İhtiyacı: ").append(String.format("%.0f", sporcu.gunlukKaloriIhtiyaciHesapla())).append(" kcal\n");
-        rapor.append(sporcu.genelHedefDurumuGetir()).append("\n\n");
-
-        java.util.List<com.lifesync.Antrenman> antrenmanlar = sporcu.getAntrenmanListesi();
-        rapor.append("Toplam Antrenman Sayısı: ").append(antrenmanlar.size()).append("\n");
-        for (com.lifesync.Antrenman a : antrenmanlar) {
-            rapor.append("  • ").append(a.ozetGetir()).append("\n");
-        }
-
-        txtIlerlemeRaporu.setText(rapor.toString());
-    }
 
     private void sporcuAntrenmanPaneliniOlustur() {
         javax.swing.JPanel pnlAntrenmanlar = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
@@ -2121,85 +1990,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * Sporcu paneline "Profil Düzenle" sekmesi ekler.
-     * Boy, Kilo ve Ad Soyad alanlarını güncelleme imkanı sağlar.
-     */
-    private void sporcuProfilDuzenlemePaneliniOlustur() {
-        javax.swing.JPanel pnlDuzenle = new javax.swing.JPanel();
-        pnlDuzenle.setLayout(new javax.swing.BoxLayout(pnlDuzenle, javax.swing.BoxLayout.Y_AXIS));
-        pnlDuzenle.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        javax.swing.JLabel lblBaslik = new javax.swing.JLabel("Profil Bilgilerini Güncelle");
-        lblBaslik.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16));
-        lblBaslik.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-        pnlDuzenle.add(lblBaslik);
-        pnlDuzenle.add(javax.swing.Box.createVerticalStrut(16));
-
-        javax.swing.JPanel formPanel = new javax.swing.JPanel(new java.awt.GridLayout(3, 2, 10, 10));
-        formPanel.setMaximumSize(new java.awt.Dimension(400, 120));
-        formPanel.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-        javax.swing.JTextField txtAdDuzenle = new javax.swing.JTextField(20);
-        javax.swing.JTextField txtBoyDuzenle = new javax.swing.JTextField(10);
-        javax.swing.JTextField txtKiloDuzenle = new javax.swing.JTextField(10);
-
-        formPanel.add(new javax.swing.JLabel("Ad Soyad:"));
-        formPanel.add(txtAdDuzenle);
-        formPanel.add(new javax.swing.JLabel("Boy (cm):"));
-        formPanel.add(txtBoyDuzenle);
-        formPanel.add(new javax.swing.JLabel("Kilo (kg):"));
-        formPanel.add(txtKiloDuzenle);
-        pnlDuzenle.add(formPanel);
-        pnlDuzenle.add(javax.swing.Box.createVerticalStrut(16));
-
-        javax.swing.JButton btnKaydet = new javax.swing.JButton("Değişiklikleri Kaydet");
-        btnKaydet.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-        pnlDuzenle.add(btnKaydet);
-        pnlDuzenle.add(javax.swing.Box.createVerticalStrut(10));
-        javax.swing.JLabel lblSonuc = new javax.swing.JLabel(" ");
-        lblSonuc.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-        pnlDuzenle.add(lblSonuc);
-
-        // Sekme açıldığında mevcut verileri doldur
-        pnlProfilSekmesi.addChangeListener(e -> {
-            if (pnlProfilSekmesi.getSelectedComponent() != null &&
-                pnlProfilSekmesi.getSelectedComponent() == pnlDuzenle) {
-                com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-                if (aktif instanceof com.lifesync.Sporcu) {
-                    com.lifesync.Sporcu s = (com.lifesync.Sporcu) aktif;
-                    txtAdDuzenle.setText(s.getAdSoyad());
-                    txtBoyDuzenle.setText(String.valueOf(s.getBoy()));
-                    txtKiloDuzenle.setText(String.valueOf(s.getKilo()));
-                }
-            }
-        });
-
-        btnKaydet.addActionListener(ev -> {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (!(aktif instanceof com.lifesync.Sporcu)) return;
-            com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
-            try {
-                String yeniAd = txtAdDuzenle.getText().trim();
-                double yeniBoy = Double.parseDouble(txtBoyDuzenle.getText().trim());
-                double yeniKilo = Double.parseDouble(txtKiloDuzenle.getText().trim());
-                if (yeniAd.isEmpty()) {
-                    lblSonuc.setText("Hata: Ad Soyad boş olamaz.");
-                    return;
-                }
-                sporcu.setAdSoyad(yeniAd);
-                sporcu.setBoy(yeniBoy);
-                sporcu.setKilo(yeniKilo);
-                com.lifesync.DatabaseManager.profilGuncelle(sporcu);
-                sporcuProfiliniDoldur();
-                lblSonuc.setText("Profil başarıyla güncellendi!");
-            } catch (NumberFormatException ex) {
-                lblSonuc.setText("Hata: Boy ve Kilo alanlarına sayısal değer girin.");
-            }
-        });
-
-        pnlProfilSekmesi.addTab("Profil Düzenle", pnlDuzenle);
-    }
 
     /**
      * Sporcu paneline "Hedeflerim" sekmesi ekler.

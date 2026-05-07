@@ -1,5 +1,4 @@
 com\lifesync\Main.class
-com\lifesync\gui\MainFrame$8.class
 com\lifesync\VeriDeposu.class
 com\lifesync\gui\MainFrame$3.class
 com\lifesync\Sporcu.class
@@ -7,6 +6,7 @@ com\lifesync\Supplement.class
 com\lifesync\Antrenor.class
 com\lifesync\Mesaj.class
 com\lifesync\Ogun.class
+com\lifesync\gui\MainFrame$5.class
 com\lifesync\Hedef.class
 com\lifesync\KullanimZamani.class
 com\lifesync\KullaniciFactory.class
@@ -18,6 +18,7 @@ com\lifesync\AuthService.class
 com\lifesync\GunlukTakip.class
 com\lifesync\Besin.class
 com\lifesync\Kullanici.class
+com\lifesync\gui\MainFrame$4.class
 com\lifesync\OgunTuru.class
 com\lifesync\Antrenman.class
 com\lifesync\gui\MainFrame.class
@@ -30,4 +31,5 @@ com\lifesync\gui\MainFrame$1.class
 com\lifesync\Birim.class
 com\lifesync\KimlikDogrulamaHatasi.class
 com\lifesync\DatabaseManager.class
+com\lifesync\gui\MainFrame$6.class
 com\lifesync\IOzetlenebilir.class
