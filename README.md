@@ -49,7 +49,7 @@ Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 
 1. Projeyi klonlayın:
    ```bash
-   git clone https://github.com/kullaniciadi/LifeSync.git
+   git clone https://github.com/ABK7474/LifeSync.git
    ```
 
 2. Proje dizinine gidin:
