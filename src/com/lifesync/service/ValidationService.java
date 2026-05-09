@@ -1,13 +1,8 @@
 package com.lifesync.service;
 
-import com.lifesync.model.*;
-import com.lifesync.service.*;
-import com.lifesync.repository.*;
-import com.lifesync.factory.*;
-import com.lifesync.exception.*;
-import com.lifesync.interfaces.*;
-import com.lifesync.util.*;
-
+import com.lifesync.exception.GecersizVeriHatasi;
+import com.lifesync.model.Kullanici;
+import com.lifesync.model.Sporcu;
 
 /**
  * Doğrulama işlemlerini gerçekleştiren yardımcı (utility) sınıf.

@@ -4,13 +4,28 @@
  */
 package com.lifesync.gui;
 
-import com.lifesync.model.*;
-import com.lifesync.service.*;
-import com.lifesync.repository.*;
-import com.lifesync.factory.*;
-import com.lifesync.exception.*;
-import com.lifesync.interfaces.*;
-import com.lifesync.util.*;
+import com.lifesync.exception.GecersizVeriHatasi;
+import com.lifesync.exception.KimlikDogrulamaHatasi;
+import com.lifesync.factory.KullaniciFactory;
+import com.lifesync.model.AmatorSporcu;
+import com.lifesync.model.Antrenman;
+import com.lifesync.model.Antrenor;
+import com.lifesync.model.Besin;
+import com.lifesync.model.Egzersiz;
+import com.lifesync.model.GunlukTakip;
+import com.lifesync.model.Hedef;
+import com.lifesync.model.Kullanici;
+import com.lifesync.model.Mesaj;
+import com.lifesync.model.Ogun;
+import com.lifesync.model.ProfesyonelSporcu;
+import com.lifesync.model.Sporcu;
+import com.lifesync.repository.DatabaseManager;
+import com.lifesync.repository.VeriDeposu;
+import com.lifesync.service.AuthService;
+import com.lifesync.service.GunlukTakipService;
+import com.lifesync.service.ValidationService;
+import com.lifesync.util.AntrenmanTuru;
+import com.lifesync.util.OgunTuru;
 
 
 /**

@@ -1,13 +1,9 @@
 package com.lifesync;
 
-import com.lifesync.model.*;
-import com.lifesync.service.*;
-import com.lifesync.repository.*;
-import com.lifesync.factory.*;
-import com.lifesync.exception.*;
-import com.lifesync.interfaces.*;
-import com.lifesync.util.*;
-import com.lifesync.gui.*;
+import com.lifesync.exception.KimlikDogrulamaHatasi;
+import com.lifesync.gui.MainFrame;
+import com.lifesync.repository.VeriDeposu;
+import com.lifesync.service.AuthService;
 
 
 public class Main {

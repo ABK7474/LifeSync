@@ -1,13 +1,12 @@
 package com.lifesync.service;
 
-import com.lifesync.model.*;
-import com.lifesync.service.*;
-import com.lifesync.repository.*;
-import com.lifesync.factory.*;
-import com.lifesync.exception.*;
-import com.lifesync.interfaces.*;
-import com.lifesync.util.*;
-
+import com.lifesync.exception.KimlikDogrulamaHatasi;
+import com.lifesync.factory.KullaniciFactory;
+import com.lifesync.model.GunlukTakip;
+import com.lifesync.model.Kullanici;
+import com.lifesync.model.Ogun;
+import com.lifesync.repository.DatabaseManager;
+import com.lifesync.repository.VeriDeposu;
 
 public class AuthService {
 

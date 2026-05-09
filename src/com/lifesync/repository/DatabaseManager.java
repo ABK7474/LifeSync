@@ -1,14 +1,9 @@
 package com.lifesync.repository;
 
+import com.lifesync.factory.KullaniciFactory;
 import com.lifesync.model.*;
-import com.lifesync.service.*;
-import com.lifesync.repository.*;
-import com.lifesync.factory.*;
-import com.lifesync.exception.*;
-import com.lifesync.interfaces.*;
-import com.lifesync.util.*;
-
-
+import com.lifesync.util.AntrenmanTuru;
+import com.lifesync.util.OgunTuru;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

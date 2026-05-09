@@ -1,14 +1,5 @@
 package com.lifesync.model;
 
-import com.lifesync.model.*;
-import com.lifesync.service.*;
-import com.lifesync.repository.*;
-import com.lifesync.factory.*;
-import com.lifesync.exception.*;
-import com.lifesync.interfaces.*;
-import com.lifesync.util.*;
-
-
 public class Antrenor extends Kullanici {
 
     public Antrenor(int kullaniciId, String adSoyad, String email, String sifre) {

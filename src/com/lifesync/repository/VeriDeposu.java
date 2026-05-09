@@ -1,14 +1,10 @@
 package com.lifesync.repository;
 
-import com.lifesync.model.*;
-import com.lifesync.service.*;
-import com.lifesync.repository.*;
-import com.lifesync.factory.*;
-import com.lifesync.exception.*;
-import com.lifesync.interfaces.*;
-import com.lifesync.util.*;
-
-
+import com.lifesync.model.Antrenman;
+import com.lifesync.model.Besin;
+import com.lifesync.model.Egzersiz;
+import com.lifesync.model.Kullanici;
+import com.lifesync.model.Mesaj;
 import java.util.ArrayList;
 import java.util.List;
 

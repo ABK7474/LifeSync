@@ -30,4 +30,5 @@ com\lifesync\repository\VeriDeposu.class
 com\lifesync\repository\DatabaseManager.class
 com\lifesync\gui\MainFrame$1.class
 com\lifesync\gui\MainFrame$6.class
+com\lifesync\IOzetlenebilir.class
 com\lifesync\model\GunlukTakip.class
