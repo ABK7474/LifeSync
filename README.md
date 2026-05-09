@@ -59,18 +59,53 @@ Eğer Maven kurulu değilse işletim sisteminize göre aşağıdaki yöntemlerde
 winget install Apache.Maven
 ```
 
-Alternatif olarak Maven'i Apache Maven sitesinden indirip `bin` klasörünü sistem `PATH` değişkenine ekleyebilirsiniz.
+Manuel kurulum yapmak isterseniz:
+1. Apache Maven'i resmi sitesinden indirin.
+2. ZIP dosyasını örneğin şu konuma çıkarın:
+   ```text
+   C:\Program Files\Apache\maven
+   ```
+3. Windows arama kısmına **Environment Variables** yazın ve **Edit the system environment variables** seçeneğini açın.
+4. **Environment Variables** butonuna tıklayın.
+5. **System variables** bölümünde **New** diyerek şu değişkeni ekleyin:
+   ```text
+   MAVEN_HOME = C:\Program Files\Apache\maven
+   ```
+6. **Path** değişkenini seçip **Edit** deyin ve şunu ekleyin:
+   ```text
+   %MAVEN_HOME%\bin
+   ```
+7. Terminali kapatıp yeniden açın ve kontrol edin:
+   ```bash
+   mvn -v
+   ```
 
 **macOS:**
 ```bash
 brew install maven
 ```
 
+Manuel kurulum yapıldıysa Maven'in `bin` klasörü `PATH` değişkenine eklenmelidir. Örneğin:
+```bash
+export MAVEN_HOME=/opt/apache-maven
+export PATH=$MAVEN_HOME/bin:$PATH
+```
+
+Bu satırları kalıcı yapmak için kullandığınız terminale göre `~/.zshrc` veya `~/.bashrc` dosyasına ekleyebilirsiniz.
+
 **Ubuntu / Debian:**
 ```bash
 sudo apt update
 sudo apt install maven
 ```
+
+Manuel kurulum yapıldıysa Maven'in `bin` klasörü `PATH` değişkenine eklenmelidir. Örneğin:
+```bash
+export MAVEN_HOME=/opt/apache-maven
+export PATH=$MAVEN_HOME/bin:$PATH
+```
+
+Bu satırları kalıcı yapmak için `~/.bashrc` dosyasına ekleyip terminali yeniden başlatabilirsiniz.
 
 Kurulumdan sonra terminali kapatıp yeniden açın ve tekrar kontrol edin:
 ```bash
