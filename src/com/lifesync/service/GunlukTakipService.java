@@ -73,6 +73,11 @@ public final class GunlukTakipService {
     public static String netDurumHesapla(Sporcu sporcu) {
         double alinan   = gunlukAlinanKalori(sporcu);
         double harcanan = gunlukHarcananKalori(sporcu);
+        
+        if (alinan == 0 && harcanan == 0) {
+            return "Henüz bugüne ait öğün veya egzersiz verisi girmediniz.\nLütfen yukarıdaki alanlardan giriş yapın.";
+        }
+
         double net      = alinan - harcanan;
 
         String durum;

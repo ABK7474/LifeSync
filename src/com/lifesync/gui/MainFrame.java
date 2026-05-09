@@ -1125,7 +1125,15 @@ public class MainFrame extends javax.swing.JFrame {
             Sporcu sporcu = (Sporcu) aktif;
             Besin secilenBesin = (Besin) cmbBesinSec.getSelectedItem();
             OgunTuru secilenTur = (OgunTuru) cmbOgunTuru.getSelectedItem();
-            if (secilenBesin == null || secilenTur == null) return;
+            
+            if (secilenBesin == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Lütfen bir besin seçin.", "Uyarı", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (secilenTur == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Lütfen bir öğün türü seçin.", "Uyarı", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             double gram;
             try {
@@ -1167,7 +1175,10 @@ public class MainFrame extends javax.swing.JFrame {
             if (!(aktif instanceof Sporcu)) return;
             Sporcu sporcu = (Sporcu) aktif;
             Egzersiz secilenEgzersiz = (Egzersiz) cmbEgzersizSec.getSelectedItem();
-            if (secilenEgzersiz == null) return;
+            if (secilenEgzersiz == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Lütfen bir egzersiz seçin.", "Uyarı", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             // Bugunun tarihi ile bir antrenman bul; yoksa FULL_BODY olarak olustur
             java.time.LocalDate bugun = java.time.LocalDate.now();
