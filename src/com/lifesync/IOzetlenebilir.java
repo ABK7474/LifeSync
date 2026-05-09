@@ -1,6 +1,0 @@
-package com.lifesync;
-
-public interface IOzetlenebilir {
-
-	String ozetGetir();
-}
