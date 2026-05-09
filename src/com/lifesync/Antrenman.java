@@ -37,6 +37,10 @@ public class Antrenman implements IOzetlenebilir {
         egzersizListesi.add(egzersiz);
     }
 
+    public void egzersizSil(int egzersizId) {
+        egzersizListesi.removeIf(e -> e.getEgzersizId() == egzersizId);
+    }
+
     public double toplamHacimHesapla() { //Bu method antrenmandaki bütün egzersizlerin yaptığı toplam iş miktarını hesaplıyor.
         double toplamHacim = 0;
 
