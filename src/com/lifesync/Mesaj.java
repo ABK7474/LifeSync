@@ -37,12 +37,6 @@ public class Mesaj {
     public LocalDateTime getTarih() { return tarih; }
     public void setTarih(LocalDateTime tarih) { this.tarih = tarih; }
 
-    
-    
-    
-
-    
-    
     /**
      * Mesajı okunabilir formatta döndürür.
      */
