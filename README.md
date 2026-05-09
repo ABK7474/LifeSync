@@ -42,8 +42,40 @@
 Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
 
 ### Ön Koşullar
-- Bilgisayarınızda **Java Development Kit (JDK) 8 veya üzeri** yüklü olmalıdır.
+- Bilgisayarınızda **Java Development Kit (JDK) 25** yüklü olmalıdır.
 - **Maven** yüklü olmalıdır.
+
+### Maven Kurulumu
+
+Maven'in kurulu olup olmadığını kontrol etmek için:
+```bash
+mvn -v
+```
+
+Eğer Maven kurulu değilse işletim sisteminize göre aşağıdaki yöntemlerden birini kullanabilirsiniz:
+
+**Windows:**
+```bash
+winget install Apache.Maven
+```
+
+Alternatif olarak Maven'i Apache Maven sitesinden indirip `bin` klasörünü sistem `PATH` değişkenine ekleyebilirsiniz.
+
+**macOS:**
+```bash
+brew install maven
+```
+
+**Ubuntu / Debian:**
+```bash
+sudo apt update
+sudo apt install maven
+```
+
+Kurulumdan sonra terminali kapatıp yeniden açın ve tekrar kontrol edin:
+```bash
+mvn -v
+```
 
 ### Adımlar
 
