@@ -4,6 +4,15 @@
  */
 package com.lifesync.gui;
 
+import com.lifesync.model.*;
+import com.lifesync.service.*;
+import com.lifesync.repository.*;
+import com.lifesync.factory.*;
+import com.lifesync.exception.*;
+import com.lifesync.interfaces.*;
+import com.lifesync.util.*;
+
+
 /**
  * LifeSync uygulamasının ana penceresi.
  * CardLayout ile ekran geçişleri yönetilir.
@@ -41,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         // Sistem başlatma: Dosyadan verileri yükle (TEK bir kez, merkezi olarak)
-        com.lifesync.VeriDeposu.sistemiBaslat();
+        VeriDeposu.sistemiBaslat();
         
         initComponents();
         
@@ -73,8 +82,8 @@ public class MainFrame extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                com.lifesync.AuthService.cikisYap();
-                com.lifesync.VeriDeposu.sistemiKapat();
+                AuthService.cikisYap();
+                VeriDeposu.sistemiKapat();
             }
         });
     }
@@ -501,12 +510,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         // 3. Arka plan servisi (AuthService) ile iletişime geç
         try {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.girisYap(email, sifre);
+            Kullanici aktif = AuthService.girisYap(email, sifre);
 
             javax.swing.JOptionPane.showMessageDialog(this, "Hoşgeldin: " + aktif.getAdSoyad(), "Başarılı", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
             // Kullanıcının tipini kontrol et ve ilgili panele yönlendir (CardLayout ile)
-            if (aktif instanceof com.lifesync.Antrenor) {
+            if (aktif instanceof Antrenor) {
                 antrenorVerileriniDoldur(); // Sporcu tablosunu güncel verilerle doldur
                 panelGoster("card5"); // card5 = pnlAntrenorPaneli
             } else {
@@ -518,7 +527,7 @@ public class MainFrame extends javax.swing.JFrame {
             txtEmail.setText("");
             txtSifre.setText("");
 
-        } catch (com.lifesync.KimlikDogrulamaHatasi ex) {
+        } catch (KimlikDogrulamaHatasi ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Giriş Başarısız", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGirisYapActionPerformed
@@ -554,7 +563,7 @@ public class MainFrame extends javax.swing.JFrame {
         String sifre = new String(txtSifreKayit.getPassword());
         String tip = cmbKullaniciTipi.getSelectedItem().toString(); 
         String ekstraBilgi = txtEkstraBilgi.getText();
-        int yeniID = com.lifesync.VeriDeposu.yeniKullaniciIdUret(); 
+        int yeniID = VeriDeposu.yeniKullaniciIdUret(); 
         
         // 2. Boş Alan Kontrolü (Erken Çıkış - Early Return Prensibi)
         if (adSoyad.trim().isEmpty() || email.trim().isEmpty() || sifre.trim().isEmpty()) {
@@ -586,19 +595,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         // 4. ValidationService ile Doğrulama (OOP: Utility class kullanımı)
         try {
-            com.lifesync.Kullanici geciciKullanici = com.lifesync.KullaniciFactory.kullaniciOlustur(tip, yeniID, adSoyad, email, sifre, boy, kilo, ekstraBilgi);
-            com.lifesync.ValidationService.kullaniciDogrula(geciciKullanici);
-            if (geciciKullanici instanceof com.lifesync.Sporcu) {
-                com.lifesync.ValidationService.sporcuDogrula((com.lifesync.Sporcu) geciciKullanici);
+            Kullanici geciciKullanici = KullaniciFactory.kullaniciOlustur(tip, yeniID, adSoyad, email, sifre, boy, kilo, ekstraBilgi);
+            ValidationService.kullaniciDogrula(geciciKullanici);
+            if (geciciKullanici instanceof Sporcu) {
+                ValidationService.sporcuDogrula((Sporcu) geciciKullanici);
             }
-        } catch (com.lifesync.GecersizVeriHatasi ex) {
+        } catch (GecersizVeriHatasi ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Doğrulama Hatası", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         // 5. Arka Plan Servisi (AuthService) İle İletişim ve Veri Kalıcılığı
         try {
-            com.lifesync.AuthService.kayitOl(tip, yeniID, adSoyad, email, sifre, boy, kilo, ekstraBilgi);
+            AuthService.kayitOl(tip, yeniID, adSoyad, email, sifre, boy, kilo, ekstraBilgi);
 
             javax.swing.JOptionPane.showMessageDialog(this, "Hesabınız başarıyla oluşturuldu. Şimdi giriş yapabilirsiniz.", "Kayıt Başarılı", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
@@ -613,7 +622,7 @@ public class MainFrame extends javax.swing.JFrame {
             // CardLayout ile Giriş Ekranına yönlendir
             panelGoster("card2");
 
-        } catch (com.lifesync.KimlikDogrulamaHatasi ex) {
+        } catch (KimlikDogrulamaHatasi ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Kayıt Hatası", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnKayitOlActionPerformed
@@ -632,7 +641,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnCikisYapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCikisYapActionPerformed
         // Arka plan servisinden oturumu kapat ve verileri txt dosyasına kalıcı olarak yaz
-        com.lifesync.AuthService.cikisYap();
+        AuthService.cikisYap();
 
         // CardLayout ile Giriş ekranına dön
         panelGoster("card2");
@@ -661,11 +670,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
 
             // 4. Bellekteki aktif kullanıcı nesnesini çağırma
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+            Kullanici aktif = AuthService.getAktifKullanici();
 
             // Nesnenin Sporcu sınıfından türeyip türemediğini doğrulama
-            if (aktif instanceof com.lifesync.Sporcu) {
-                com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
+            if (aktif instanceof Sporcu) {
+                Sporcu sporcu = (Sporcu) aktif;
 
                 // Net enerji dengesi hesaplama algoritması
                 double netKalori = alinanKalori - harcananKalori;
@@ -800,9 +809,9 @@ public class MainFrame extends javax.swing.JFrame {
         pnlProfilSekmesi.addChangeListener(e -> {
             if (pnlProfilSekmesi.getSelectedComponent() != null &&
                 pnlProfilSekmesi.getSelectedComponent() == pnlProfilDetay) {
-                com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-                if (aktif instanceof com.lifesync.Sporcu) {
-                    com.lifesync.Sporcu s = (com.lifesync.Sporcu) aktif;
+                Kullanici aktif = AuthService.getAktifKullanici();
+                if (aktif instanceof Sporcu) {
+                    Sporcu s = (Sporcu) aktif;
                     txtBoyDuzenle.setText(String.valueOf(s.getBoy()));
                     txtKiloDuzenle.setText(String.valueOf(s.getKilo()));
                 }
@@ -810,15 +819,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnKaydet.addActionListener(ev -> {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (!(aktif instanceof com.lifesync.Sporcu)) return;
-            com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
+            Kullanici aktif = AuthService.getAktifKullanici();
+            if (!(aktif instanceof Sporcu)) return;
+            Sporcu sporcu = (Sporcu) aktif;
             try {
                 double yeniBoy = Double.parseDouble(txtBoyDuzenle.getText().trim());
                 double yeniKilo = Double.parseDouble(txtKiloDuzenle.getText().trim());
                 sporcu.setBoy(yeniBoy);
                 sporcu.setKilo(yeniKilo);
-                com.lifesync.DatabaseManager.profilGuncelle(sporcu);
+                DatabaseManager.profilGuncelle(sporcu);
                 sporcuProfiliniDoldur(); // Etiketleri günceller
                 lblSonuc.setText("Profil başarıyla güncellendi!");
             } catch (NumberFormatException ex) {
@@ -848,12 +857,12 @@ public class MainFrame extends javax.swing.JFrame {
         if (action == javax.swing.JOptionPane.OK_OPTION) {
             String sifre = new String(pwd.getPassword());
             try {
-                com.lifesync.AuthService.hesapSil(sifre);
+                AuthService.hesapSil(sifre);
                 javax.swing.JOptionPane.showMessageDialog(this,
                     "Hesabınız ve ilgili tüm verileriniz başarıyla silindi.",
                     "Bilgi", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 panelGoster("card2");
-            } catch (com.lifesync.KimlikDogrulamaHatasi ex) {
+            } catch (KimlikDogrulamaHatasi ex) {
                 javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Hata",
                     javax.swing.JOptionPane.ERROR_MESSAGE);
             }
@@ -879,7 +888,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         javax.swing.JButton btnCikisYapYeni = new javax.swing.JButton("Çıkış Yap");
         btnCikisYapYeni.addActionListener(e -> {
-            com.lifesync.AuthService.cikisYap();
+            AuthService.cikisYap();
             panelGoster("card2");
         });
         toolbar.add(btnCikisYapYeni);
@@ -912,20 +921,20 @@ public class MainFrame extends javax.swing.JFrame {
         pnlOgunEkle.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 180));
 
         javax.swing.JPanel ogunGirisPanel = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 4));
-        javax.swing.JComboBox<com.lifesync.OgunTuru> cmbOgunTuru =
-            new javax.swing.JComboBox<>(com.lifesync.OgunTuru.values());
+        javax.swing.JComboBox<OgunTuru> cmbOgunTuru =
+            new javax.swing.JComboBox<>(OgunTuru.values());
 
-        java.util.List<com.lifesync.Besin> besinKatalogu = com.lifesync.VeriDeposu.getBesinKutuphanesi();
-        javax.swing.JComboBox<com.lifesync.Besin> cmbBesinSec =
-            new javax.swing.JComboBox<>(besinKatalogu.toArray(new com.lifesync.Besin[0]));
+        java.util.List<Besin> besinKatalogu = VeriDeposu.getBesinKutuphanesi();
+        javax.swing.JComboBox<Besin> cmbBesinSec =
+            new javax.swing.JComboBox<>(besinKatalogu.toArray(new Besin[0]));
         cmbBesinSec.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(
                     javax.swing.JList<?> list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof com.lifesync.Besin)
-                    setText(((com.lifesync.Besin) value).getBesinAdi());
+                if (value instanceof Besin)
+                    setText(((Besin) value).getBesinAdi());
                 return this;
             }
         });
@@ -967,18 +976,18 @@ public class MainFrame extends javax.swing.JFrame {
             ogunListModel.remove(secili);
 
             // RAM'deki Ogun nesnesinden de kaldır
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (aktif instanceof com.lifesync.Sporcu) {
-                com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
+            Kullanici aktif = AuthService.getAktifKullanici();
+            if (aktif instanceof Sporcu) {
+                Sporcu sporcu = (Sporcu) aktif;
                 // Satır formatı: "OGUN_TURU  —  BesinAdi  —  gram g  —  kcal kcal"
                 String[] parcalar = silinenSatir.split("  —  ");
                 if (parcalar.length >= 2) {
                     String turStr = parcalar[0].trim();
                     String besinAdi = parcalar[1].trim();
                     java.time.LocalDate bugun = java.time.LocalDate.now();
-                    for (com.lifesync.Ogun o : sporcu.getOgunListesi()) {
+                    for (Ogun o : sporcu.getOgunListesi()) {
                         if (o.getTarih().equals(bugun) && o.getOgunTuru().name().equals(turStr)) {
-                            for (com.lifesync.Besin b : o.getBesinListesi()) {
+                            for (Besin b : o.getBesinListesi()) {
                                 if (b.getBesinAdi().equals(besinAdi)) {
                                     o.besinSil(b.getBesinId());
                                     break;
@@ -988,7 +997,7 @@ public class MainFrame extends javax.swing.JFrame {
                         }
                     }
                 }
-                com.lifesync.VeriDeposu.ogunleriDiskeYaz();
+                VeriDeposu.ogunleriDiskeYaz();
             }
         });
         pnlOgunAlt.add(btnBesinSil);
@@ -1000,17 +1009,17 @@ public class MainFrame extends javax.swing.JFrame {
         pnlEgzersizEkle.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 180));
 
         javax.swing.JPanel egzGirisPanel = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 4));
-        java.util.List<com.lifesync.Egzersiz> egzersizKatalogu = com.lifesync.VeriDeposu.getEgzersizKutuphanesi();
-        javax.swing.JComboBox<com.lifesync.Egzersiz> cmbEgzersizSec =
-            new javax.swing.JComboBox<>(egzersizKatalogu.toArray(new com.lifesync.Egzersiz[0]));
+        java.util.List<Egzersiz> egzersizKatalogu = VeriDeposu.getEgzersizKutuphanesi();
+        javax.swing.JComboBox<Egzersiz> cmbEgzersizSec =
+            new javax.swing.JComboBox<>(egzersizKatalogu.toArray(new Egzersiz[0]));
         cmbEgzersizSec.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(
                     javax.swing.JList<?> list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof com.lifesync.Egzersiz)
-                    setText(((com.lifesync.Egzersiz) value).getEgzersizAdi());
+                if (value instanceof Egzersiz)
+                    setText(((Egzersiz) value).getEgzersizAdi());
                 return this;
             }
         });
@@ -1043,17 +1052,17 @@ public class MainFrame extends javax.swing.JFrame {
             String silinenSatir = egzListModel.get(secili);
             egzListModel.remove(secili);
 
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (aktif instanceof com.lifesync.Sporcu) {
-                com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
+            Kullanici aktif = AuthService.getAktifKullanici();
+            if (aktif instanceof Sporcu) {
+                Sporcu sporcu = (Sporcu) aktif;
                 // Satır formatı: "EgzersizAdi  —  setxrep  —  kg  —  kcal"
                 String[] parcalar = silinenSatir.split("  —  ");
                 if (parcalar.length >= 1) {
                     String egzAdi = parcalar[0].trim();
                     java.time.LocalDate bugun = java.time.LocalDate.now();
-                    for (com.lifesync.Antrenman a : sporcu.getAntrenmanListesi()) {
+                    for (Antrenman a : sporcu.getAntrenmanListesi()) {
                         if (a.getTarih().equals(bugun)) {
-                            for (com.lifesync.Egzersiz eg : a.getEgzersizListesi()) {
+                            for (Egzersiz eg : a.getEgzersizListesi()) {
                                 if (eg.getEgzersizAdi().equals(egzAdi)) {
                                     a.egzersizSil(eg.getEgzersizId());
                                     break;
@@ -1063,7 +1072,7 @@ public class MainFrame extends javax.swing.JFrame {
                         }
                     }
                 }
-                com.lifesync.VeriDeposu.antrenmanlariDiskeYaz();
+                VeriDeposu.antrenmanlariDiskeYaz();
             }
         });
         pnlEgzAlt.add(btnEgzersizSil);
@@ -1092,15 +1101,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         // Besin Ekle butonu
         btnOgunEkle.addActionListener(e -> {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (!(aktif instanceof com.lifesync.Sporcu)) {
+            Kullanici aktif = AuthService.getAktifKullanici();
+            if (!(aktif instanceof Sporcu)) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Bu islem yalnizca sporcu profilleri icindir.",
                     "Yetki Hatasi", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
-            com.lifesync.Besin secilenBesin = (com.lifesync.Besin) cmbBesinSec.getSelectedItem();
-            com.lifesync.OgunTuru secilenTur = (com.lifesync.OgunTuru) cmbOgunTuru.getSelectedItem();
+            Sporcu sporcu = (Sporcu) aktif;
+            Besin secilenBesin = (Besin) cmbBesinSec.getSelectedItem();
+            OgunTuru secilenTur = (OgunTuru) cmbOgunTuru.getSelectedItem();
             if (secilenBesin == null || secilenTur == null) return;
 
             double gram;
@@ -1116,67 +1125,67 @@ public class MainFrame extends javax.swing.JFrame {
 
             // Sporcunun bugunun tarihine ait ve ayni ogun turundeki ogununu bul; yoksa olustur
             java.time.LocalDate bugun = java.time.LocalDate.now();
-            com.lifesync.Ogun hedefOgun = null;
-            for (com.lifesync.Ogun o : sporcu.getOgunListesi()) {
+            Ogun hedefOgun = null;
+            for (Ogun o : sporcu.getOgunListesi()) {
                 if (o.getTarih().equals(bugun) && o.getOgunTuru() == secilenTur) {
                     hedefOgun = o;
                     break;
                 }
             }
             if (hedefOgun == null) {
-                hedefOgun = new com.lifesync.Ogun(
+                hedefOgun = new Ogun(
                     sporcu.getOgunListesi().size() + 1, secilenTur);
                 sporcu.ogunEkle(hedefOgun);
             }
             hedefOgun.besinEkle(secilenBesin, gram);
 
-            double kcal = com.lifesync.GunlukTakipService.besinKaloriHesapla(secilenBesin, gram);
+            double kcal = GunlukTakipService.besinKaloriHesapla(secilenBesin, gram);
             ogunListModel.addElement(String.format("%s  —  %s  —  %.0f g  —  %.1f kcal",
                 secilenTur, secilenBesin.getBesinAdi(), gram, kcal));
             txtGram.setText("");
-            com.lifesync.VeriDeposu.ogunleriDiskeYaz();
+            VeriDeposu.ogunleriDiskeYaz();
         });
 
         // Egzersiz Ekle butonu
         btnEgzersizEkle.addActionListener(e -> {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (!(aktif instanceof com.lifesync.Sporcu)) return;
-            com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
-            com.lifesync.Egzersiz secilenEgzersiz = (com.lifesync.Egzersiz) cmbEgzersizSec.getSelectedItem();
+            Kullanici aktif = AuthService.getAktifKullanici();
+            if (!(aktif instanceof Sporcu)) return;
+            Sporcu sporcu = (Sporcu) aktif;
+            Egzersiz secilenEgzersiz = (Egzersiz) cmbEgzersizSec.getSelectedItem();
             if (secilenEgzersiz == null) return;
 
             // Bugunun tarihi ile bir antrenman bul; yoksa FULL_BODY olarak olustur
             java.time.LocalDate bugun = java.time.LocalDate.now();
-            com.lifesync.Antrenman hedefAntrenman = null;
-            for (com.lifesync.Antrenman a : sporcu.getAntrenmanListesi()) {
+            Antrenman hedefAntrenman = null;
+            for (Antrenman a : sporcu.getAntrenmanListesi()) {
                 if (a.getTarih().equals(bugun)) {
                     hedefAntrenman = a;
                     break;
                 }
             }
             if (hedefAntrenman == null) {
-                hedefAntrenman = new com.lifesync.Antrenman(
+                hedefAntrenman = new Antrenman(
                     sporcu.getAntrenmanListesi().size() + 1,
-                    bugun, com.lifesync.AntrenmanTuru.FULL_BODY);
+                    bugun, AntrenmanTuru.FULL_BODY);
                 sporcu.antrenmanEkle(hedefAntrenman);
             }
             hedefAntrenman.egzersizEkle(secilenEgzersiz);
 
-            double kcal = com.lifesync.GunlukTakipService.egzersizKaloriHesapla(secilenEgzersiz);
+            double kcal = GunlukTakipService.egzersizKaloriHesapla(secilenEgzersiz);
             egzListModel.addElement(String.format("%s  —  %dx%d  —  %.1f kg  —  ~%.1f kcal",
                 secilenEgzersiz.getEgzersizAdi(),
                 secilenEgzersiz.getSetSayisi(),
                 secilenEgzersiz.getTekrarSayisi(),
                 secilenEgzersiz.getAgirlik(), kcal));
-            com.lifesync.VeriDeposu.antrenmanlariDiskeYaz();
+            VeriDeposu.antrenmanlariDiskeYaz();
         });
 
         // Net Durum Hesapla butonu
         btnHesapla.addActionListener(e -> {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (!(aktif instanceof com.lifesync.Sporcu)) return;
-            com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
-            String sonuc = com.lifesync.GunlukTakipService.netDurumHesapla(sporcu);
+            Kullanici aktif = AuthService.getAktifKullanici();
+            if (!(aktif instanceof Sporcu)) return;
+            Sporcu sporcu = (Sporcu) aktif;
+            String sonuc = GunlukTakipService.netDurumHesapla(sporcu);
             lblNetDurum.setText("<html>" + sonuc.replace("\n", "<br>") + "</html>");
         });
     }
@@ -1256,37 +1265,37 @@ public class MainFrame extends javax.swing.JFrame {
     // Polymorphism (Çok Biçimlilik) kullanılarak alt sınıfın özel verileri de (Seviye/Branş) çekilir.
      
     private void sporcuProfiliniDoldur() {
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+        Kullanici aktif = AuthService.getAktifKullanici();
         
         if (aktif != null) {
             lblProfilAd.setText("Ad Soyad: " + aktif.getAdSoyad());
 
             // 1. Aşama: Gelen kullanıcının bir Sporcu olup olmadığını kontrol et
-            if (aktif instanceof com.lifesync.Sporcu) {
+            if (aktif instanceof Sporcu) {
                 
                 // 2. Aşama: Type Casting (Tip Dönüşümü) ile Kullanici'yi Sporcu'ya çevir
-                com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
+                Sporcu sporcu = (Sporcu) aktif;
                 
                 // Artık boy ve kilo verilerine Sporcu referansı üzerinden güvenle erişebiliriz
                 lblProfilBoy.setText("Boy: " + sporcu.getBoy() + " cm");
                 lblProfilKilo.setText("Kilo: " + sporcu.getKilo() + " kg");
 
                 // 3. Aşama: Alt Sınıflara (Amator / Profesyonel) özel verileri ayıkla
-                if (sporcu instanceof com.lifesync.AmatorSporcu) {
-                    com.lifesync.AmatorSporcu amator = (com.lifesync.AmatorSporcu) sporcu;
+                if (sporcu instanceof AmatorSporcu) {
+                    AmatorSporcu amator = (AmatorSporcu) sporcu;
                     lblProfilTip.setText("Hesap Tipi: Amatör Sporcu");
                     lblProfilEkstra.setText("Deneyim Seviyesi: " + amator.getDeneyimSeviyesi());
                     
-                } else if (sporcu instanceof com.lifesync.ProfesyonelSporcu) {
-                    com.lifesync.ProfesyonelSporcu prof = (com.lifesync.ProfesyonelSporcu) sporcu;
+                } else if (sporcu instanceof ProfesyonelSporcu) {
+                    ProfesyonelSporcu prof = (ProfesyonelSporcu) sporcu;
                     lblProfilTip.setText("Hesap Tipi: Profesyonel Sporcu");
                     lblProfilEkstra.setText("Yarıştığı Branş: " + prof.getYaristigiAlan());
                 }
                 
                 // --- SPORCU GİRİŞ YAPINCA MESAJ KISMINI DOLDUR ---
                 cmbSporcuAntrenorler.removeAllItems();
-                for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
-                    if (k instanceof com.lifesync.Antrenor) {
+                for (Kullanici k : VeriDeposu.getKullaniciListesi()) {
+                    if (k instanceof Antrenor) {
                         cmbSporcuAntrenorler.addItem(k.getKullaniciID() + " - " + k.getAdSoyad());
                     }
                 }
@@ -1300,7 +1309,7 @@ public class MainFrame extends javax.swing.JFrame {
                 // --- SPORCU GİRİŞ YAPINCA ANTRENMAN TABLOSUNU DOLDUR ---
                 sporcuAntrenmanTablosunuDoldur();
                 
-            } else if (aktif instanceof com.lifesync.Antrenor) {
+            } else if (aktif instanceof Antrenor) {
                 // Eğer Antrenör profiline bu metottan erişilirse diye güvenlik bloğu
                 lblProfilTip.setText("Hesap Tipi: Antrenör");
                 lblProfilBoy.setText("Boy: -");
@@ -1333,7 +1342,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnAntrenorCikis = new javax.swing.JButton("Çıkış Yap");
         btnAntrenorCikis.addActionListener(e -> {
-            com.lifesync.AuthService.cikisYap();
+            AuthService.cikisYap();
             panelGoster("card2");
         });
         sagButonPaneli.add(btnAntrenorCikis);
@@ -1386,16 +1395,16 @@ public class MainFrame extends javax.swing.JFrame {
                     javax.swing.JOptionPane.showMessageDialog(this, "Duyuru metni boş olamaz.", "Uyarı", javax.swing.JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+                Kullanici aktif = AuthService.getAktifKullanici();
                 int gonderilen = 0;
-                for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
-                    if (k instanceof com.lifesync.Sporcu) {
-                        com.lifesync.Mesaj m = new com.lifesync.Mesaj(
-                            com.lifesync.VeriDeposu.yeniMesajId(),
+                for (Kullanici k : VeriDeposu.getKullaniciListesi()) {
+                    if (k instanceof Sporcu) {
+                        Mesaj m = new Mesaj(
+                            VeriDeposu.yeniMesajId(),
                             aktif.getKullaniciID(), k.getKullaniciID(),
                             aktif.getAdSoyad(), k.getAdSoyad(),
                             "[DUYURU] " + icerik);
-                        com.lifesync.VeriDeposu.mesajEkle(m);
+                        VeriDeposu.mesajEkle(m);
                         gonderilen++;
                     }
                 }
@@ -1468,15 +1477,15 @@ public class MainFrame extends javax.swing.JFrame {
         pnlHedefAta.add(pnlHedefAtaAlt, java.awt.BorderLayout.SOUTH);
 
         btnHedefAta.addActionListener(ev -> {
-            com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
+            Sporcu sporcu = seciliSporcuyuBul();
             if (sporcu == null) return;
             try {
                 double hk = Double.parseDouble(txtHaKilo.getText().trim());
                 double hkal = Double.parseDouble(txtHaKalori.getText().trim());
                 double hp = Double.parseDouble(txtHaProtein.getText().trim());
                 double hs = Double.parseDouble(txtHaSu.getText().trim());
-                sporcu.setHedef(new com.lifesync.Hedef(hk, hkal, hp, hs));
-                com.lifesync.VeriDeposu.hedefleriDiskeYaz();
+                sporcu.setHedef(new Hedef(hk, hkal, hp, hs));
+                VeriDeposu.hedefleriDiskeYaz();
                 lblHedefAtaSonuc.setText(sporcu.getAdSoyad() + " icin hedef atandi!");
             } catch (NumberFormatException ex) {
                 lblHedefAtaSonuc.setText("Hata: Tum alanlara sayisal deger girin.");
@@ -1500,7 +1509,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlIstatistik.add(new javax.swing.JScrollPane(txtIstatistik), java.awt.BorderLayout.CENTER);
 
         btnIstatGoster.addActionListener(ev -> {
-            com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
+            Sporcu sporcu = seciliSporcuyuBul();
             if (sporcu == null) return;
             StringBuilder sb = new StringBuilder();
             sb.append("=== ").append(sporcu.getAdSoyad()).append(" — Istatistik & Ilerleme Ozeti ===\n\n");
@@ -1510,16 +1519,16 @@ public class MainFrame extends javax.swing.JFrame {
             sb.append("Gunluk Kalori Ihtiyaci: ").append(String.format("%.0f", sporcu.gunlukKaloriIhtiyaciHesapla())).append(" kcal\n\n");
 
             // --- ILERLEME ---
-            com.lifesync.Kullanici aktifAntrenor = com.lifesync.AuthService.getAktifKullanici();
-            if (aktifAntrenor instanceof com.lifesync.Antrenor) {
+            Kullanici aktifAntrenor = AuthService.getAktifKullanici();
+            if (aktifAntrenor instanceof Antrenor) {
                 sb.append("--- Ilerleme ---\n");
-                sb.append(((com.lifesync.Antrenor) aktifAntrenor).ilerlemeIncele(sporcu)).append("\n\n");
+                sb.append(((Antrenor) aktifAntrenor).ilerlemeIncele(sporcu)).append("\n\n");
             }
 
             // --- ANTRENMAN ISTATISTIKLERI ---
             int toplam = sporcu.getAntrenmanListesi().size();
             int tamamlanan = 0;
-            for (com.lifesync.Antrenman a : sporcu.getAntrenmanListesi()) {
+            for (Antrenman a : sporcu.getAntrenmanListesi()) {
                 if (a.isTamamlandi()) tamamlanan++;
             }
             sb.append("--- Antrenman ---\n");
@@ -1530,7 +1539,7 @@ public class MainFrame extends javax.swing.JFrame {
                 sb.append("Tamamlanma Orani: %").append(String.format("%.0f", (tamamlanan * 100.0 / toplam))).append("\n");
             }
             sb.append("\nAntrenman Detaylari:\n");
-            for (com.lifesync.Antrenman a : sporcu.getAntrenmanListesi()) {
+            for (Antrenman a : sporcu.getAntrenmanListesi()) {
                 sb.append("  • ").append(a.ozetGetir()).append("\n");
             }
 
@@ -1540,11 +1549,11 @@ public class MainFrame extends javax.swing.JFrame {
             java.time.LocalDate bugun = java.time.LocalDate.now();
             double gunlukToplam = 0;
             boolean veriVar = false;
-            for (com.lifesync.Ogun o : sporcu.getOgunListesi()) {
+            for (Ogun o : sporcu.getOgunListesi()) {
                 if (o.getTarih().equals(bugun)) {
                     veriVar = true;
                     sb.append("  [ ").append(o.getOgunTuru()).append(" ]\n");
-                    for (java.util.Map.Entry<com.lifesync.Besin, Double> e : o.getBesinGramHaritasi().entrySet()) {
+                    for (java.util.Map.Entry<Besin, Double> e : o.getBesinGramHaritasi().entrySet()) {
                         double kcal = (e.getValue() / 100.0) * e.getKey().getKalori();
                         sb.append("    ").append(e.getKey().getBesinAdi())
                           .append(" — ").append(String.format("%.0f", e.getValue())).append(" g")
@@ -1565,7 +1574,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
             double toplamKalori = 0;
-            for (com.lifesync.Ogun o : sporcu.getOgunListesi()) {
+            for (Ogun o : sporcu.getOgunListesi()) {
                 toplamKalori += o.toplamKaloriHesapla();
             }
             sb.append("  Tum Zamanlarda Alinan Toplam Kalori: ").append(String.format("%.0f", toplamKalori)).append(" kcal\n");
@@ -1586,19 +1595,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         javax.swing.JPanel pnlDpForm = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 4));
         pnlDpForm.setBorder(javax.swing.BorderFactory.createTitledBorder("Antrenman Programi Olustur"));
-        javax.swing.JComboBox<com.lifesync.AntrenmanTuru> cmbDpTur =
-            new javax.swing.JComboBox<>(com.lifesync.AntrenmanTuru.values());
-        java.util.List<com.lifesync.Egzersiz> egzKatalog = com.lifesync.VeriDeposu.getEgzersizKutuphanesi();
-        javax.swing.JComboBox<com.lifesync.Egzersiz> cmbDpEgz =
-            new javax.swing.JComboBox<>(egzKatalog.toArray(new com.lifesync.Egzersiz[0]));
+        javax.swing.JComboBox<AntrenmanTuru> cmbDpTur =
+            new javax.swing.JComboBox<>(AntrenmanTuru.values());
+        java.util.List<Egzersiz> egzKatalog = VeriDeposu.getEgzersizKutuphanesi();
+        javax.swing.JComboBox<Egzersiz> cmbDpEgz =
+            new javax.swing.JComboBox<>(egzKatalog.toArray(new Egzersiz[0]));
         cmbDpEgz.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(
                     javax.swing.JList<?> list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof com.lifesync.Egzersiz)
-                    setText(((com.lifesync.Egzersiz) value).getEgzersizAdi());
+                if (value instanceof Egzersiz)
+                    setText(((Egzersiz) value).getEgzersizAdi());
                 return this;
             }
         });
@@ -1615,10 +1624,10 @@ public class MainFrame extends javax.swing.JFrame {
         pnlDetayliProgram.add(new javax.swing.JScrollPane(lstDpEgzersizler), java.awt.BorderLayout.CENTER);
 
         // Gecici egzersiz listesi (henuz atanmamis)
-        java.util.List<com.lifesync.Egzersiz> geciciEgzListesi = new java.util.ArrayList<>();
+        java.util.List<Egzersiz> geciciEgzListesi = new java.util.ArrayList<>();
 
         btnDpEgzEkle.addActionListener(ev -> {
-            com.lifesync.Egzersiz sec = (com.lifesync.Egzersiz) cmbDpEgz.getSelectedItem();
+            Egzersiz sec = (Egzersiz) cmbDpEgz.getSelectedItem();
             if (sec == null) return;
             geciciEgzListesi.add(sec);
             dpListModel.addElement(sec.getEgzersizAdi() + " (" + sec.getSetSayisi() + "x" + sec.getTekrarSayisi() + " @ " + sec.getAgirlik() + "kg)");
@@ -1640,20 +1649,20 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnDpAta.addActionListener(ev -> {
-            com.lifesync.Sporcu sporcu = seciliSporcuyuBul();
+            Sporcu sporcu = seciliSporcuyuBul();
             if (sporcu == null) return;
             if (geciciEgzListesi.isEmpty()) {
                 lblDpSonuc.setText("Lutfen en az bir egzersiz ekleyin.");
                 return;
             }
-            com.lifesync.AntrenmanTuru tur = (com.lifesync.AntrenmanTuru) cmbDpTur.getSelectedItem();
+            AntrenmanTuru tur = (AntrenmanTuru) cmbDpTur.getSelectedItem();
             int yeniId = (int) (Math.random() * 10000);
-            com.lifesync.Antrenman yeni = new com.lifesync.Antrenman(yeniId, java.time.LocalDate.now(), tur);
-            for (com.lifesync.Egzersiz eg : geciciEgzListesi) {
+            Antrenman yeni = new Antrenman(yeniId, java.time.LocalDate.now(), tur);
+            for (Egzersiz eg : geciciEgzListesi) {
                 yeni.egzersizEkle(eg);
             }
             sporcu.antrenmanEkle(yeni);
-            com.lifesync.VeriDeposu.antrenmanlariDiskeYaz();
+            VeriDeposu.antrenmanlariDiskeYaz();
             lblDpSonuc.setText(sporcu.getAdSoyad() + " icin " + geciciEgzListesi.size() + " egzersizli program atandi!");
             geciciEgzListesi.clear();
             dpListModel.clear();
@@ -1731,13 +1740,13 @@ public class MainFrame extends javax.swing.JFrame {
         // Sekme acildiginda profili doldur
         antrenorSekmeler.addChangeListener(e -> {
             if (antrenorSekmeler.getSelectedComponent() == pnlAntrenorProfil) {
-                com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+                Kullanici aktif = AuthService.getAktifKullanici();
                 if (aktif != null) {
                     lblApAd.setText("Ad Soyad: " + aktif.getAdSoyad());
                     lblApEmail.setText("Email: " + aktif.getEmail());
                     int spSayisi = 0;
-                    for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
-                        if (k instanceof com.lifesync.Sporcu) spSayisi++;
+                    for (Kullanici k : VeriDeposu.getKullaniciListesi()) {
+                        if (k instanceof Sporcu) spSayisi++;
                     }
                     lblApSporcuSayisi.setText("Sistemdeki Sporcu Sayisi: " + spSayisi);
                 }
@@ -1752,7 +1761,7 @@ public class MainFrame extends javax.swing.JFrame {
      * Antrenor panelindeki sporcu tablosundan secili sporcuyu bulur ve dondurur.
      * Secim yoksa veya sporcu degilse null doner ve uyari gosterir.
      */
-    private com.lifesync.Sporcu seciliSporcuyuBul() {
+    private Sporcu seciliSporcuyuBul() {
         if (tblSporcuListesi == null) return null;
         int row = tblSporcuListesi.getSelectedRow();
         if (row == -1) {
@@ -1762,9 +1771,9 @@ public class MainFrame extends javax.swing.JFrame {
             return null;
         }
         int sporcuId = (int) sporcuTableModel.getValueAt(row, 0);
-        for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
-            if (k.getKullaniciID() == sporcuId && k instanceof com.lifesync.Sporcu) {
-                return (com.lifesync.Sporcu) k;
+        for (Kullanici k : VeriDeposu.getKullaniciListesi()) {
+            if (k.getKullaniciID() == sporcuId && k instanceof Sporcu) {
+                return (Sporcu) k;
             }
         }
         return null;
@@ -1804,13 +1813,13 @@ public class MainFrame extends javax.swing.JFrame {
             modelAntrenorMesajSporcular.clear();
         }
 
-        for (com.lifesync.Kullanici k : com.lifesync.VeriDeposu.getKullaniciListesi()) {
-            if (k instanceof com.lifesync.Sporcu) {
-                com.lifesync.Sporcu s = (com.lifesync.Sporcu) k;
+        for (Kullanici k : VeriDeposu.getKullaniciListesi()) {
+            if (k instanceof Sporcu) {
+                Sporcu s = (Sporcu) k;
                 String tip = "Sporcu";
-                if (s instanceof com.lifesync.AmatorSporcu) {
+                if (s instanceof AmatorSporcu) {
                     tip = "Amatör";
-                } else if (s instanceof com.lifesync.ProfesyonelSporcu) {
+                } else if (s instanceof ProfesyonelSporcu) {
                     tip = "Profesyonel";
                 }
                 sporcuTableModel.addRow(new Object[]{
@@ -1836,11 +1845,11 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         int sporcuId = Integer.parseInt(secilenKisi.split(" - ")[0]);
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+        Kullanici aktif = AuthService.getAktifKullanici();
         
-        java.util.List<com.lifesync.Mesaj> mesajlar = com.lifesync.VeriDeposu.ikiKisiArasindakiMesajlar(aktif.getKullaniciID(), sporcuId);
+        java.util.List<Mesaj> mesajlar = VeriDeposu.ikiKisiArasindakiMesajlar(aktif.getKullaniciID(), sporcuId);
         StringBuilder sb = new StringBuilder();
-        for (com.lifesync.Mesaj m : mesajlar) {
+        for (Mesaj m : mesajlar) {
             sb.append(m.formatliGoster()).append("\n");
         }
         txtAntrenorMesajGecmisi.setText(sb.toString());
@@ -1856,19 +1865,19 @@ public class MainFrame extends javax.swing.JFrame {
         if (icerik.isEmpty()) return;
         
         int sporcuId = Integer.parseInt(secilenKisi.split(" - ")[0]);
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-        com.lifesync.Kullanici alici = com.lifesync.VeriDeposu.emailIleKullaniciBul(
-            com.lifesync.VeriDeposu.getKullaniciListesi().stream()
+        Kullanici aktif = AuthService.getAktifKullanici();
+        Kullanici alici = VeriDeposu.emailIleKullaniciBul(
+            VeriDeposu.getKullaniciListesi().stream()
                 .filter(k -> k.getKullaniciID() == sporcuId)
                 .findFirst().map(k -> k.getEmail()).orElse("")
         );
         if (alici == null) {
-            alici = com.lifesync.VeriDeposu.getKullaniciListesi().stream().filter(k -> k.getKullaniciID() == sporcuId).findFirst().orElse(null);
+            alici = VeriDeposu.getKullaniciListesi().stream().filter(k -> k.getKullaniciID() == sporcuId).findFirst().orElse(null);
         }
 
         if (alici != null) {
-            com.lifesync.Mesaj yeniMesaj = new com.lifesync.Mesaj(com.lifesync.VeriDeposu.yeniMesajId(), aktif.getKullaniciID(), alici.getKullaniciID(), aktif.getAdSoyad(), alici.getAdSoyad(), icerik);
-            com.lifesync.VeriDeposu.mesajEkle(yeniMesaj);
+            Mesaj yeniMesaj = new Mesaj(VeriDeposu.yeniMesajId(), aktif.getKullaniciID(), alici.getKullaniciID(), aktif.getAdSoyad(), alici.getAdSoyad(), icerik);
+            VeriDeposu.mesajEkle(yeniMesaj);
             txtAntrenorMesajInput.setText("");
             antrenorMesajGecmisiniYukle();
         }
@@ -1882,11 +1891,11 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         int antrenorId = Integer.parseInt(secilenAntrenor.split(" - ")[0]);
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
+        Kullanici aktif = AuthService.getAktifKullanici();
         
-        java.util.List<com.lifesync.Mesaj> mesajlar = com.lifesync.VeriDeposu.ikiKisiArasindakiMesajlar(aktif.getKullaniciID(), antrenorId);
+        java.util.List<Mesaj> mesajlar = VeriDeposu.ikiKisiArasindakiMesajlar(aktif.getKullaniciID(), antrenorId);
         StringBuilder sb = new StringBuilder();
-        for (com.lifesync.Mesaj m : mesajlar) {
+        for (Mesaj m : mesajlar) {
             sb.append(m.formatliGoster()).append("\n");
         }
         txtSporcuMesajGecmisi.setText(sb.toString());
@@ -1902,11 +1911,11 @@ public class MainFrame extends javax.swing.JFrame {
         if (icerik.isEmpty()) return;
         
         int antrenorId = Integer.parseInt(secilenAntrenor.split(" - ")[0]);
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-        com.lifesync.Kullanici alici = com.lifesync.VeriDeposu.getKullaniciListesi().stream().filter(k -> k.getKullaniciID() == antrenorId).findFirst().orElse(null);
+        Kullanici aktif = AuthService.getAktifKullanici();
+        Kullanici alici = VeriDeposu.getKullaniciListesi().stream().filter(k -> k.getKullaniciID() == antrenorId).findFirst().orElse(null);
         if (alici != null) {
-            com.lifesync.Mesaj yeniMesaj = new com.lifesync.Mesaj(com.lifesync.VeriDeposu.yeniMesajId(), aktif.getKullaniciID(), alici.getKullaniciID(), aktif.getAdSoyad(), alici.getAdSoyad(), icerik);
-            com.lifesync.VeriDeposu.mesajEkle(yeniMesaj);
+            Mesaj yeniMesaj = new Mesaj(VeriDeposu.yeniMesajId(), aktif.getKullaniciID(), alici.getKullaniciID(), aktif.getAdSoyad(), alici.getAdSoyad(), icerik);
+            VeriDeposu.mesajEkle(yeniMesaj);
             txtSporcuMesajInput.setText("");
             sporcuMesajGecmisiniYukle();
         }
@@ -1959,13 +1968,13 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-        if (aktif instanceof com.lifesync.Sporcu) {
-            com.lifesync.Sporcu s = (com.lifesync.Sporcu) aktif;
-            for (com.lifesync.Antrenman a : s.getAntrenmanListesi()) {
+        Kullanici aktif = AuthService.getAktifKullanici();
+        if (aktif instanceof Sporcu) {
+            Sporcu s = (Sporcu) aktif;
+            for (Antrenman a : s.getAntrenmanListesi()) {
                 if (a.getAntrenmanId() == antrenmanId) {
                     a.setTamamlandi(true);
-                    com.lifesync.VeriDeposu.antrenmanlariDiskeYaz(); // Diske kaydet
+                    VeriDeposu.antrenmanlariDiskeYaz(); // Diske kaydet
                     sporcuAntrenmanTablosunuDoldur(); // Tabloyu yenile
                     javax.swing.JOptionPane.showMessageDialog(this, "Antrenman başarıyla tamamlandı!", "Tebrikler", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     break;
@@ -1978,10 +1987,10 @@ public class MainFrame extends javax.swing.JFrame {
         if (sporcuAntrenmanTableModel == null) return;
         sporcuAntrenmanTableModel.setRowCount(0);
         
-        com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-        if (aktif instanceof com.lifesync.Sporcu) {
-            com.lifesync.Sporcu s = (com.lifesync.Sporcu) aktif;
-            for (com.lifesync.Antrenman a : s.getAntrenmanListesi()) {
+        Kullanici aktif = AuthService.getAktifKullanici();
+        if (aktif instanceof Sporcu) {
+            Sporcu s = (Sporcu) aktif;
+            for (Antrenman a : s.getAntrenmanListesi()) {
                 sporcuAntrenmanTableModel.addRow(new Object[]{
                     a.getAntrenmanId(), 
                     a.getTarih().toString(), 
@@ -2042,9 +2051,9 @@ public class MainFrame extends javax.swing.JFrame {
         pnlProfilSekmesi.addChangeListener(e -> {
             if (pnlProfilSekmesi.getSelectedComponent() != null &&
                 pnlProfilSekmesi.getSelectedComponent() == pnlHedef) {
-                com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-                if (aktif instanceof com.lifesync.Sporcu) {
-                    com.lifesync.Hedef h = ((com.lifesync.Sporcu) aktif).getHedef();
+                Kullanici aktif = AuthService.getAktifKullanici();
+                if (aktif instanceof Sporcu) {
+                    Hedef h = ((Sporcu) aktif).getHedef();
                     if (h != null) {
                         txtHedefKilo.setText(String.valueOf(h.getHedefKilo()));
                         txtHedefKalori.setText(String.valueOf(h.getHedefKalori()));
@@ -2063,17 +2072,17 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnHedefKaydet.addActionListener(ev -> {
-            com.lifesync.Kullanici aktif = com.lifesync.AuthService.getAktifKullanici();
-            if (!(aktif instanceof com.lifesync.Sporcu)) return;
-            com.lifesync.Sporcu sporcu = (com.lifesync.Sporcu) aktif;
+            Kullanici aktif = AuthService.getAktifKullanici();
+            if (!(aktif instanceof Sporcu)) return;
+            Sporcu sporcu = (Sporcu) aktif;
             try {
                 double hKilo = Double.parseDouble(txtHedefKilo.getText().trim());
                 double hKalori = Double.parseDouble(txtHedefKalori.getText().trim());
                 double hProtein = Double.parseDouble(txtHedefProtein.getText().trim());
                 double hSu = Double.parseDouble(txtHedefSu.getText().trim());
-                com.lifesync.Hedef yeniHedef = new com.lifesync.Hedef(hKilo, hKalori, hProtein, hSu);
+                Hedef yeniHedef = new Hedef(hKilo, hKalori, hProtein, hSu);
                 sporcu.setHedef(yeniHedef);
-                com.lifesync.VeriDeposu.hedefleriDiskeYaz();
+                VeriDeposu.hedefleriDiskeYaz();
                 lblHedefDurum.setText("Hedef başarıyla kaydedildi! Kilo: " + hKilo + " kg | Kalori: " + hKalori + " kcal");
             } catch (NumberFormatException ex) {
                 lblHedefDurum.setText("Hata: Tüm alanlara sayısal değer giriniz.");
