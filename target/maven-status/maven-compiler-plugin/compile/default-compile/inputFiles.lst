@@ -1,29 +1,27 @@
-D:\LifeSync\src\com\lifesync\AmatorSporcu.java
-D:\LifeSync\src\com\lifesync\Antrenman.java
-D:\LifeSync\src\com\lifesync\AntrenmanTuru.java
-D:\LifeSync\src\com\lifesync\Antrenor.java
-D:\LifeSync\src\com\lifesync\AuthService.java
-D:\LifeSync\src\com\lifesync\Besin.java
-D:\LifeSync\src\com\lifesync\Birim.java
-D:\LifeSync\src\com\lifesync\DatabaseManager.java
-D:\LifeSync\src\com\lifesync\Egzersiz.java
-D:\LifeSync\src\com\lifesync\GecersizVeriHatasi.java
-D:\LifeSync\src\com\lifesync\gui\MainFrame.java
-D:\LifeSync\src\com\lifesync\GunlukTakip.java
-D:\LifeSync\src\com\lifesync\GunlukTakipService.java
-D:\LifeSync\src\com\lifesync\Hedef.java
-D:\LifeSync\src\com\lifesync\IBilgiGetirebilir.java
-D:\LifeSync\src\com\lifesync\IOzetlenebilir.java
-D:\LifeSync\src\com\lifesync\KimlikDogrulamaHatasi.java
-D:\LifeSync\src\com\lifesync\Kullanici.java
-D:\LifeSync\src\com\lifesync\KullaniciFactory.java
-D:\LifeSync\src\com\lifesync\KullanimZamani.java
-D:\LifeSync\src\com\lifesync\Main.java
-D:\LifeSync\src\com\lifesync\Mesaj.java
-D:\LifeSync\src\com\lifesync\Ogun.java
-D:\LifeSync\src\com\lifesync\OgunTuru.java
-D:\LifeSync\src\com\lifesync\ProfesyonelSporcu.java
-D:\LifeSync\src\com\lifesync\Sporcu.java
-D:\LifeSync\src\com\lifesync\Supplement.java
-D:\LifeSync\src\com\lifesync\ValidationService.java
-D:\LifeSync\src\com\lifesync\VeriDeposu.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\AmatorSporcu.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Antrenman.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\AntrenmanTuru.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Antrenor.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\AuthService.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Besin.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Birim.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\DatabaseManager.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Egzersiz.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\GecersizVeriHatasi.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\gui\MainFrame.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\GunlukTakip.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\GunlukTakipService.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Hedef.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\IBilgiGetirebilir.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\IOzetlenebilir.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\KimlikDogrulamaHatasi.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Kullanici.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\KullaniciFactory.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Main.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Mesaj.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Ogun.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\OgunTuru.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\ProfesyonelSporcu.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\Sporcu.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\ValidationService.java
+C:\Users\ahmet\OneDrive\Desktop\Yeni klasör\LifeSync\src\com\lifesync\VeriDeposu.java

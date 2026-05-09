@@ -13,8 +13,8 @@ public abstract class Sporcu extends Kullanici {
     private List<GunlukTakip> gunlukTakipListesi;
     private List<Ogun> ogunListesi = new ArrayList<>();
 
-    public Sporcu(int kullaniciId, String adSoyad, String email, String sifreHash, double boy, double kilo) {
-        super(kullaniciId, adSoyad, email, sifreHash);
+    public Sporcu(int kullaniciId, String adSoyad, String email, String sifre, double boy, double kilo) {
+        super(kullaniciId, adSoyad, email, sifre);
         this.boy = boy;
         this.kilo = kilo;
         this.antrenmanListesi = new ArrayList<>();

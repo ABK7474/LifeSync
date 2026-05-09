@@ -19,7 +19,7 @@ public final class ValidationService {
             throw new GecersizVeriHatasi("Hata: Geçersiz e-posta adresi girdiniz!");
         }
 
-        if (kullanici.getSifreHash() == null || kullanici.getSifreHash().length() < 4) {
+        if (kullanici.getSifre() == null || kullanici.getSifre().length() < 4) {
             throw new GecersizVeriHatasi("Hata: Şifre en az 4 karakter olmalıdır!");
         }
 

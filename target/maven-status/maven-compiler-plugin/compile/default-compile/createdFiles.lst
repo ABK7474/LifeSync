@@ -2,13 +2,11 @@ com\lifesync\Main.class
 com\lifesync\VeriDeposu.class
 com\lifesync\gui\MainFrame$3.class
 com\lifesync\Sporcu.class
-com\lifesync\Supplement.class
 com\lifesync\Antrenor.class
 com\lifesync\Mesaj.class
 com\lifesync\Ogun.class
 com\lifesync\gui\MainFrame$5.class
 com\lifesync\Hedef.class
-com\lifesync\KullanimZamani.class
 com\lifesync\KullaniciFactory.class
 com\lifesync\ProfesyonelSporcu.class
 com\lifesync\gui\MainFrame$2.class

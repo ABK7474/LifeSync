@@ -70,7 +70,7 @@ Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 - `DatabaseManager.java` : SQLite veritabanı işlemleri, profil güncellemeleri ve tablo oluşturma.
 - `AuthService.java` : Kullanıcı kayıt, giriş işlemleri, oturum yönetimi ve hesap doğrulama.
 - `GunlukTakipService.java` : Günlük bazda besin tüketimi ve egzersiz harcaması hesaplamaları.
-- `VeriDeposu.java` : Bellek-içi (In-memory) önbellekleme ve JSON/TXT tabanlı veri kalıcılığı.
+- `VeriDeposu.java` : Bellek-içi (In-memory) veri yönetimi ve SQLite veritabanı ile RAM arasındaki senkronizasyonun kontrolü.
 
 ---
 *LifeSync ile hedeflerine daha hızlı ve planlı ulaş!* 🏆

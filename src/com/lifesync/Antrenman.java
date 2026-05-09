@@ -26,27 +26,15 @@ public class Antrenman implements IOzetlenebilir {
     public void setTamamlandi(boolean tamamlandi) { this.tamamlandi = tamamlandi; } 
     
     public int getAntrenmanId() { return antrenmanId; }
-    public void setAntrenmanId(int antrenmanId) { this.antrenmanId = antrenmanId; }
     
     public LocalDate getTarih() { return tarih; }
-    public void setTarih(LocalDate tarih) { this.tarih = tarih; }
             
     public AntrenmanTuru getAntrenmanTuru() { return antrenmanTuru; }
-    public void setAntrenmanTuru(AntrenmanTuru antrenmanTuru) { this.antrenmanTuru = antrenmanTuru; }
         
     public List<Egzersiz> getEgzersizListesi() { return egzersizListesi; }
 
     public void egzersizEkle(Egzersiz egzersiz) {
         egzersizListesi.add(egzersiz);
-    }
-
-    public void egzersizSil(int egzersizId) {
-        for (int i = 0; i < egzersizListesi.size(); i++) {
-            if (egzersizListesi.get(i).getEgzersizId() == egzersizId) {
-                egzersizListesi.remove(i);
-                break;
-            }
-        }
     }
 
     public double toplamHacimHesapla() { //Bu method antrenmandaki bütün egzersizlerin yaptığı toplam iş miktarını hesaplıyor.

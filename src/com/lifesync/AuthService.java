@@ -46,7 +46,7 @@ public class AuthService {
             throw new KimlikDogrulamaHatasi("Hata: Bu e-posta adresine ait bir hesap bulunamadı.");
         }
 
-        if (kullanici.getSifreHash().equals(sifre)) {
+        if (kullanici.getSifre().equals(sifre)) {
             // Şifre eşleşti — doğrudan giriş
             aktifKullanici = kullanici;
         } else {
@@ -95,7 +95,7 @@ public class AuthService {
         }
         
         // Şifreyi doğrula
-        if (!aktifKullanici.getSifreHash().equals(girilenSifre)) {
+        if (!aktifKullanici.getSifre().equals(girilenSifre)) {
             throw new KimlikDogrulamaHatasi("Hata: Girdiğiniz şifre hatalı. Hesap silinemedi.");
         }
         

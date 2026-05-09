@@ -69,9 +69,6 @@ public class DatabaseManager {
             // Gunluk Takip tablosu
             stmt.execute("CREATE TABLE IF NOT EXISTS gunluk_takip (id INTEGER PRIMARY KEY, sporcu_id INTEGER, tarih TEXT, su_miktari REAL, gunluk_not TEXT, FOREIGN KEY(sporcu_id) REFERENCES kullanicilar(id))");
 
-            // GunlukTakip-Supplement iliskisi
-            stmt.execute("CREATE TABLE IF NOT EXISTS gunluk_takip_supplementler (id INTEGER PRIMARY KEY AUTOINCREMENT, takip_id INTEGER, supplement_id INTEGER, FOREIGN KEY(takip_id) REFERENCES gunluk_takip(id))");
-
             // Hedefler tablosu
             stmt.execute("CREATE TABLE IF NOT EXISTS hedefler (sporcu_id INTEGER PRIMARY KEY, hedef_kilo REAL, hedef_kalori REAL, hedef_protein REAL, hedef_su REAL, FOREIGN KEY(sporcu_id) REFERENCES kullanicilar(id))");
 
@@ -93,7 +90,7 @@ public class DatabaseManager {
                 pstmt.setInt(1, k.getKullaniciID());
                 pstmt.setString(3, k.getAdSoyad());
                 pstmt.setString(4, k.getEmail());
-                pstmt.setString(5, k.getSifreHash());
+                pstmt.setString(5, k.getSifre());
 
                 if (k instanceof AmatorSporcu) {
                     AmatorSporcu as = (AmatorSporcu) k;
@@ -177,7 +174,6 @@ public class DatabaseManager {
             "DELETE FROM ogunler WHERE sporcu_id = ?",
             "DELETE FROM antrenman_egzersizler WHERE antrenman_id IN (SELECT id FROM antrenmanlar WHERE sporcu_id = ?)",
             "DELETE FROM antrenmanlar WHERE sporcu_id = ?",
-            "DELETE FROM gunluk_takip_supplementler WHERE takip_id IN (SELECT id FROM gunluk_takip WHERE sporcu_id = ?)",
             "DELETE FROM gunluk_takip WHERE sporcu_id = ?",
             "DELETE FROM hedefler WHERE sporcu_id = ?",
             "DELETE FROM kullanicilar WHERE id = ?"
@@ -464,12 +460,8 @@ public class DatabaseManager {
     // --- GUNLUK TAKIP ISLEMLERI ---
     public static void gunlukTakipleriKaydet(List<Kullanici> kullanicilar) {
         String sqlTakip = "INSERT OR REPLACE INTO gunluk_takip(id, sporcu_id, tarih, su_miktari, gunluk_not) VALUES(?,?,?,?,?)";
-        String sqlSupSil = "DELETE FROM gunluk_takip_supplementler WHERE takip_id = ?";
-        String sqlSup = "INSERT INTO gunluk_takip_supplementler(takip_id, supplement_id) VALUES(?,?)";
         try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement psTakip = conn.prepareStatement(sqlTakip);
-             PreparedStatement psSupSil = conn.prepareStatement(sqlSupSil);
-             PreparedStatement psSup = conn.prepareStatement(sqlSup)) {
+             PreparedStatement psTakip = conn.prepareStatement(sqlTakip)) {
             for (Kullanici k : kullanicilar) {
                 if (k instanceof Sporcu) {
                     Sporcu s = (Sporcu) k;
@@ -480,13 +472,6 @@ public class DatabaseManager {
                         psTakip.setDouble(4, gt.getSuMiktari());
                         psTakip.setString(5, gt.getGunlukNot());
                         psTakip.executeUpdate();
-                        psSupSil.setInt(1, gt.getTakipId());
-                        psSupSil.executeUpdate();
-                        for (Supplement sup : gt.getSupplementListesi()) {
-                            psSup.setInt(1, gt.getTakipId());
-                            psSup.setInt(2, sup.getSupplementId());
-                            psSup.executeUpdate();
-                        }
                     }
                 }
             }
@@ -497,12 +482,9 @@ public class DatabaseManager {
 
     public static void gunlukTakipleriYukle(List<Kullanici> kullanicilar) {
         String sqlTakip = "SELECT * FROM gunluk_takip";
-        String sqlSup = "SELECT * FROM gunluk_takip_supplementler WHERE takip_id = ?";
-        List<Supplement> katalog = VeriDeposu.getSupplementKutuphanesi();
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sqlTakip);
-             PreparedStatement psSup = conn.prepareStatement(sqlSup)) {
+             ResultSet rs = stmt.executeQuery(sqlTakip)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int sporcuId = rs.getInt("sporcu_id");
@@ -513,15 +495,7 @@ public class DatabaseManager {
                 gt.setTarih(tarih);
                 gt.setSuMiktari(su);
                 gt.setGunlukNot(not_);
-                psSup.setInt(1, id);
-                try (ResultSet rsS = psSup.executeQuery()) {
-                    while (rsS.next()) {
-                        int supId = rsS.getInt("supplement_id");
-                        for (Supplement s : katalog) {
-                            if (s.getSupplementId() == supId) { gt.supplementEkle(s); break; }
-                        }
-                    }
-                }
+                
                 for (Kullanici k : kullanicilar) {
                     if (k instanceof Sporcu && k.getKullaniciID() == sporcuId) {
                         ((Sporcu) k).gunlukTakipEkle(gt);

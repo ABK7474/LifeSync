@@ -10,32 +10,25 @@ public class GunlukTakip implements IOzetlenebilir{
 	private int takipId;
 	private LocalDate tarih;
 	private double suMiktari;
-	private List<Supplement> supplementListesi;
 	private String gunlukNot;
 	
 	private Birim litre = Birim.LITRE;
-	private Birim adet = Birim.ADET;
 	
 	public GunlukTakip(int takipId)
 	{
 		this.takipId=takipId;
 		this.suMiktari=0;
 		this.tarih = LocalDate.now();
-		this.supplementListesi=new ArrayList<>();
 	}
 	
 	//region Getters and Settters
 	public int getTakipId() { return takipId; }
-	public void setTakipId(int takipId) { this.takipId = takipId; }
 	
 	public LocalDate getTarih() { return tarih; }
 	public void setTarih(LocalDate tarih) { this.tarih = tarih; }
 	
 	public double getSuMiktari() { return suMiktari; }
 	public void setSuMiktari(double suMiktari) { this.suMiktari = suMiktari; }
-	
-	public List<Supplement> getSupplementListesi() { return supplementListesi; }
-	public void setSupplementListesi(List<Supplement> supplementListesi) { this.supplementListesi = supplementListesi; }
 	
 	public String getGunlukNot() { return gunlukNot; }
 	public void setGunlukNot(String gunlukNot) { this.gunlukNot = gunlukNot; }
@@ -45,16 +38,6 @@ public class GunlukTakip implements IOzetlenebilir{
 	public void gunlukNotEkle(String not)
 	{
 		this.gunlukNot=not;
-	}
-	
-	public void suEkle(double miktar) // litre cinsinden girin.
-	{
-		this.suMiktari+=miktar;
-	}
-	
-	public void supplementEkle(Supplement supplement)
-	{
-		supplementListesi.add(supplement);
 	}
 	
 	public String hedefDurumuGetir(Sporcu sporcu) {
@@ -98,8 +81,7 @@ public class GunlukTakip implements IOzetlenebilir{
 	public String ozetGetir()
 	{
 		String ozet =   tarih + " Tarihindeki Ozet: " + 
-						suMiktari + " " + litre + " su içildi. " + 
-						supplementListesi.size() + " " + adet + " supplement kullanildi.";
+						suMiktari + " " + litre + " su içildi.";
 		
 				if(gunlukNot != null && !gunlukNot.isEmpty())
 				{

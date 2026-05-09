@@ -10,7 +10,6 @@ public class VeriDeposu {
     // Varsayılan kütüphaneler (Bunlar sabit olduğu için dosyaya yazmaya gerek yoktur)
     private static List<Besin> besinKutuphanesi = new ArrayList<>();
     private static List<Egzersiz> egzersizKutuphanesi = new ArrayList<>();
-    private static List<Supplement> supplementKutuphanesi = new ArrayList<>();
     
     // Mesajlaşma sistemi (bellekte tutulur)
     private static List<Mesaj> mesajListesi = new ArrayList<>();
@@ -140,6 +139,9 @@ public class VeriDeposu {
             besinKutuphanesi.add(new Besin(1, "Yulaf", 389, 16.9, 66.3, 6.9, 10.6));
             besinKutuphanesi.add(new Besin(2, "Tavuk Göğsü", 165, 31.0, 0.0, 3.6, 0.0));
             besinKutuphanesi.add(new Besin(3, "Pirinç", 130, 2.7, 28.0, 0.3, 0.4));
+            besinKutuphanesi.add(new Besin(4, "Whey Protein", 115, 3.0, 24.0, 1.0, 0.0)); // Örnek değerler
+            besinKutuphanesi.add(new Besin(5, "Kreatin", 0, 0.0, 0.0, 0.0, 0.0));
+            besinKutuphanesi.add(new Besin(6, "BCAA", 0, 0.0, 0.0, 0.0, 0.0));
         }
         
         if (egzersizKutuphanesi.isEmpty()) {
@@ -147,52 +149,14 @@ public class VeriDeposu {
             egzersizKutuphanesi.add(new Egzersiz(2, "Squat", 4, 8, 80.0));
             egzersizKutuphanesi.add(new Egzersiz(3, "Deadlift", 3, 5, 100.0));
         }
-        
-        if (supplementKutuphanesi.isEmpty()) {
-            supplementKutuphanesi.add(new Supplement(1, "Whey Protein", 30.0, Birim.GRAM, KullanimZamani.ANTRENMAN_SONRASI));
-            supplementKutuphanesi.add(new Supplement(2, "Kreatin", 5.0, Birim.GRAM, KullanimZamani.ANTRENMAN_ONCESI));
-            supplementKutuphanesi.add(new Supplement(3, "BCAA", 10.0, Birim.GRAM, KullanimZamani.ANTRENMAN_ONCESI));
-        }
     }
 
     public static List<Besin> getBesinKutuphanesi() { return besinKutuphanesi; }
     public static List<Egzersiz> getEgzersizKutuphanesi() { return egzersizKutuphanesi; }
-    public static List<Supplement> getSupplementKutuphanesi() { return supplementKutuphanesi; }
     
-    // IBilgiGetirebilir arayüzü ile polimorfizm kullanılarak tüm katalogları tek listede döndüren metod
-    public static List<IBilgiGetirebilir> tumKataloguGetir() {
-        List<IBilgiGetirebilir> tumKatalog = new ArrayList<>();
-        tumKatalog.addAll(besinKutuphanesi);
-        tumKatalog.addAll(egzersizKutuphanesi);
-        tumKatalog.addAll(supplementKutuphanesi);
-        return tumKatalog;
-    }
-
     // MESAJ İŞLEMLERİ
     
 
-
-    /** Belirli bir kullanıcıya gönderilen mesajları getirir. */
-    public static List<Mesaj> kullaniciyaGelenMesajlar(int kullaniciId) {
-        List<Mesaj> sonuc = new ArrayList<>();
-        for (Mesaj m : mesajListesi) {
-            if (m.getAliciId() == kullaniciId) {
-                sonuc.add(m);
-            }
-        }
-        return sonuc;
-    }
-
-    /** Belirli bir kullanıcının gönderdiği mesajları getirir. */
-    public static List<Mesaj> kullanicidanGelenMesajlar(int kullaniciId) {
-        List<Mesaj> sonuc = new ArrayList<>();
-        for (Mesaj m : mesajListesi) {
-            if (m.getGonderenId() == kullaniciId) {
-                sonuc.add(m);
-            }
-        }
-        return sonuc;
-    }
 
     /** İki kullanıcı arasındaki tüm mesajları kronolojik sırayla getirir. */
     public static List<Mesaj> ikiKisiArasindakiMesajlar(int kisi1Id, int kisi2Id) {

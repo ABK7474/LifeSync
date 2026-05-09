@@ -3,13 +3,12 @@ package com.lifesync;
 public class ProfesyonelSporcu extends Sporcu {
     private String yaristigiAlan; // Örn: Open, Klasik Fizik, Men's Fizik
 
-    public ProfesyonelSporcu(int kullaniciId, String adSoyad, String email, String sifreHash, double boy, double kilo, String yaristigiAlan) {
-        super(kullaniciId, adSoyad, email, sifreHash, boy, kilo);
+    public ProfesyonelSporcu(int kullaniciId, String adSoyad, String email, String sifre, double boy, double kilo, String yaristigiAlan) {
+        super(kullaniciId, adSoyad, email, sifre, boy, kilo);
         this.yaristigiAlan = yaristigiAlan;
     }
 
     public String getYaristigiAlan() {  return yaristigiAlan; }
-    public void setYaristigiAlan(String yaristigiAlan) {  this.yaristigiAlan = yaristigiAlan; }
     
 
     @Override
