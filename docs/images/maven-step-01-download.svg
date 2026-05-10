@@ -1,0 +1,16 @@
+<svg width="760" height="360" viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Step 1 - Download Apache Maven</title>
+  <desc id="desc">Illustration showing the Apache Maven download step for Windows setup.</desc>
+  <rect width="760" height="360" rx="24" fill="#f8fafc"/>
+  <rect x="34" y="34" width="692" height="292" rx="18" fill="#ffffff" stroke="#d7dde8" stroke-width="2"/>
+  <rect x="34" y="34" width="692" height="54" rx="18" fill="#c71a22"/>
+  <text x="64" y="69" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#ffffff">1. Apache Maven ZIP dosyasını indir</text>
+  <rect x="76" y="122" width="608" height="150" rx="14" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="104" y="158" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#0f172a">Apache Maven Download Page</text>
+  <text x="104" y="194" font-family="Arial, sans-serif" font-size="17" fill="#334155">Files bölümünden Binary zip archive seçilir.</text>
+  <rect x="104" y="220" width="270" height="34" rx="8" fill="#ffffff" stroke="#94a3b8"/>
+  <text x="120" y="243" font-family="Consolas, monospace" font-size="15" fill="#0f172a">apache-maven-...-bin.zip</text>
+  <rect x="414" y="214" width="184" height="46" rx="12" fill="#16a34a"/>
+  <text x="452" y="244" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Download</text>
+  <text x="76" y="307" font-family="Arial, sans-serif" font-size="15" fill="#64748b">Not: ZIP dosyasını indirdikten sonra klasöre çıkaracağız.</text>
+</svg>
