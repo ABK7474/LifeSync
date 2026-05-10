@@ -65,8 +65,6 @@ Manuel kurulum yapmak isterseniz aşağıdaki adımları izleyebilirsiniz.
 
 Windows üzerinde Maven kurulumu, PATH ayarı ve LifeSync projesini çalıştırma adımlarını aşağıdaki videodan izleyebilirsiniz:
 
-https://github.com/user-attachments/assets/02c808f9-8a44-4354-b69c-8560e69b33c4
-
 [Video bağlantısını aç](https://github.com/user-attachments/assets/02c808f9-8a44-4354-b69c-8560e69b33c4)
 
 1. Apache Maven'i resmi sitesinden indirin.
