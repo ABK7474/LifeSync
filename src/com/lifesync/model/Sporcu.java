@@ -1,7 +1,6 @@
 package com.lifesync.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class Sporcu extends Kullanici {
@@ -29,12 +28,9 @@ public abstract class Sporcu extends Kullanici {
     public Hedef getHedef() { return hedef; }
     public void setHedef(Hedef hedef) { this.hedef = hedef; }
     
-
-    // Encapsulation: Listeler değiştirilemez (unmodifiable) olarak döndürülür.
-    // Ekleme/silme işlemleri yalnızca sınıfın kendi metotları ile yapılabilir.
-    public List<Ogun> getOgunListesi() { return Collections.unmodifiableList(ogunListesi); }
-    public List<Antrenman> getAntrenmanListesi() { return Collections.unmodifiableList(antrenmanListesi); }
-    public List<GunlukTakip> getGunlukTakipListesi() { return Collections.unmodifiableList(gunlukTakipListesi); }
+    public List<Ogun> getOgunListesi() { return ogunListesi; }
+    public List<Antrenman> getAntrenmanListesi() { return antrenmanListesi; }
+    public List<GunlukTakip> getGunlukTakipListesi() { return gunlukTakipListesi; }
     
     public void ogunEkle(Ogun ogun) { 
         this.ogunListesi.add(ogun); 

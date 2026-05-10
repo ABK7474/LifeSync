@@ -1,27 +1,27 @@
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\exception\GecersizVeriHatasi.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\exception\KimlikDogrulamaHatasi.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\factory\KullaniciFactory.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\gui\MainFrame.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\interfaces\IBilgiGetirebilir.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\interfaces\IOzetlenebilir.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\Main.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\AmatorSporcu.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Antrenman.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Antrenor.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Besin.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Egzersiz.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\GunlukTakip.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Hedef.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Kullanici.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Mesaj.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Ogun.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\ProfesyonelSporcu.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\model\Sporcu.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\repository\DatabaseManager.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\repository\VeriDeposu.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\service\AuthService.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\service\GunlukTakipService.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\service\ValidationService.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\util\AntrenmanTuru.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\util\Birim.java
-C:\Users\ahmet\OneDrive\Desktop\Github Repos\LifeSync\src\com\lifesync\util\OgunTuru.java
+D:\LifeSync\src\com\lifesync\exception\GecersizVeriHatasi.java
+D:\LifeSync\src\com\lifesync\exception\KimlikDogrulamaHatasi.java
+D:\LifeSync\src\com\lifesync\factory\KullaniciFactory.java
+D:\LifeSync\src\com\lifesync\gui\MainFrame.java
+D:\LifeSync\src\com\lifesync\interfaces\IBilgiGetirebilir.java
+D:\LifeSync\src\com\lifesync\interfaces\IOzetlenebilir.java
+D:\LifeSync\src\com\lifesync\Main.java
+D:\LifeSync\src\com\lifesync\model\AmatorSporcu.java
+D:\LifeSync\src\com\lifesync\model\Antrenman.java
+D:\LifeSync\src\com\lifesync\model\Antrenor.java
+D:\LifeSync\src\com\lifesync\model\Besin.java
+D:\LifeSync\src\com\lifesync\model\Egzersiz.java
+D:\LifeSync\src\com\lifesync\model\GunlukTakip.java
+D:\LifeSync\src\com\lifesync\model\Hedef.java
+D:\LifeSync\src\com\lifesync\model\Kullanici.java
+D:\LifeSync\src\com\lifesync\model\Mesaj.java
+D:\LifeSync\src\com\lifesync\model\Ogun.java
+D:\LifeSync\src\com\lifesync\model\ProfesyonelSporcu.java
+D:\LifeSync\src\com\lifesync\model\Sporcu.java
+D:\LifeSync\src\com\lifesync\repository\DatabaseManager.java
+D:\LifeSync\src\com\lifesync\repository\VeriDeposu.java
+D:\LifeSync\src\com\lifesync\service\AuthService.java
+D:\LifeSync\src\com\lifesync\service\GunlukTakipService.java
+D:\LifeSync\src\com\lifesync\service\ValidationService.java
+D:\LifeSync\src\com\lifesync\util\AntrenmanTuru.java
+D:\LifeSync\src\com\lifesync\util\Birim.java
+D:\LifeSync\src\com\lifesync\util\OgunTuru.java
