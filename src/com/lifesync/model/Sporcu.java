@@ -9,7 +9,7 @@ public abstract class Sporcu extends Kullanici {
     private Hedef hedef;
     private List<Antrenman> antrenmanListesi;
     private List<GunlukTakip> gunlukTakipListesi;
-    private List<Ogun> ogunListesi = new ArrayList<>();
+    private List<Ogun> ogunListesi;
 
     public Sporcu(int kullaniciId, String adSoyad, String email, String sifre, double boy, double kilo) {
         super(kullaniciId, adSoyad, email, sifre);
@@ -17,6 +17,7 @@ public abstract class Sporcu extends Kullanici {
         this.kilo = kilo;
         this.antrenmanListesi = new ArrayList<>();
         this.gunlukTakipListesi = new ArrayList<>();
+        this.ogunListesi = new ArrayList<>();
     }
 
     public double getBoy() { return boy; }
