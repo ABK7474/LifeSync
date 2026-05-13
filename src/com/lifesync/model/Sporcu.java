@@ -59,8 +59,4 @@ public abstract class Sporcu extends Kullanici {
     // Her alt sınıf kendi özetini farklı dönecek
     public abstract String sporcuProfilOzeti();
 
-    @Override
-    public String toString() {
-        return "Sporcu{ad='" + getAdSoyad() + "', boy=" + boy + ", kilo=" + kilo + "}";
-    }
 }

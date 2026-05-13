@@ -1,6 +1,6 @@
 package com.lifesync.model;
 
-public abstract class Kullanici {
+public abstract class Kullanici{
 	private int kullaniciID;
 	private String adSoyad;
 	private String email;
@@ -22,7 +22,5 @@ public abstract class Kullanici {
 	public String getSifre() { return sifre; }
 	
 	@Override
-	public String toString() {
-		return "Kullanici{id=" + kullaniciID + ", ad='" + adSoyad + "', email='" + email + "'}";
-	}
+	public abstract String toString();
 }
